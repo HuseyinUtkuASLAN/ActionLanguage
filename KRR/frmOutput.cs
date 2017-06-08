@@ -397,5 +397,33 @@ namespace KRR
                 labelsCreated = true;
             }
         }
+
+        private void addOcclusionPoints(ref Dictionary<int, Dictionary<string,Occlusion>> occlusionPoints,int time,string fluentName,Occlusion occlusion)
+        {
+            if(occlusionPoints == null)
+            {
+                occlusionPoints = new Dictionary<int, Dictionary<string, Occlusion>>();
+            }
+
+            if (!occlusionPoints.ContainsKey(time))
+            {
+                Dictionary<string, Occlusion> newItem = new Dictionary<string, Occlusion>();
+                newItem.Add(fluentName, occlusion);
+                occlusionPoints.Add(time, newItem);
+            }else
+            {
+                if (!occlusionPoints[time].ContainsKey(fluentName))
+                {
+                    occlusionPoints[time].Add(fluentName, occlusion);
+                }
+                else
+                {
+                    throw new ArgumentException("Conflict!");
+                }
+            }
+
+
+
+        }
     }
 }
