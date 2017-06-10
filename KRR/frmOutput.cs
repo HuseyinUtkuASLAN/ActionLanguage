@@ -24,11 +24,12 @@ namespace KRR
 
         List<ACS> lstAcs;
         List<Fluent> lstObs;
+        public Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery;
 
         int timeLimit;
         
 
-        public frmOutput( int timeLimit, Dictionary<string,Fluent> fluents, Dictionary<string, Agent> agents, List<ACS> lstAcs, List<Fluent> lstObs, List<Occlusion> lstOcclusion)
+        public frmOutput( int timeLimit, Dictionary<string,Fluent> fluents, Dictionary<string, Agent> agents, List<ACS> lstAcs, List<Fluent> lstObs, List<Occlusion> lstOcclusion, Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery)
         {
             this.timeLimit = timeLimit;
             this.fluents = fluents;
@@ -36,6 +37,7 @@ namespace KRR
             this.lstAcs = lstAcs;
             this.lstObs = lstObs;
             this.lstOcclusion = lstOcclusion;
+            this.dctFluentQuery = dctFluentQuery;
 
             agentNameColor = new Dictionary<string, Color>();
             InitializeComponent();
@@ -67,7 +69,13 @@ namespace KRR
                     strOccurrencesActions += "(" + o.action.name + ", " + o.time.ToString() + "), ";
 
                     //occlusionPoints.Add(o.time, o);
-                    addOcclusionPoints(ref occlusionPoints, o.time, o.fluent.name, o);
+                    try
+                    {
+                        addOcclusionPoints(ref occlusionPoints, o.time, o.fluent.name, o);
+                    }catch (ArgumentException ae)
+                    {
+                        MessageBox.Show(ae.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 strOccurrencesActions = strOccurrencesActions.Remove(strOccurrencesActions.Length - 2);
                 strOccurrencesActions += " }" + Environment.NewLine;
@@ -134,30 +142,7 @@ namespace KRR
 
 
 
-                            //if (occlusionPoints.ContainsKey(i - 1) && occlusionPoints[i - 1].fluent.name == pair.Value.name)
-                            //{
-                            //    if (occlusionPoints[i - 1].fluent.value == 0)
-                            //    {
-                            //        text = "￢";
-                                    
-                            //    }
-                            //    label.ForeColor = Color.Crimson;
-
-                            //    if (!fluentValues.ContainsKey(occlusionPoints[i - 1].fluent.name))
-                            //    {
-                            //        fluentValues.Add(occlusionPoints[i - 1].fluent.name, occlusionPoints[i - 1].fluent.value);
-                            //    }
-                            //    else
-                            //    {
-                            //        fluentValues[occlusionPoints[i - 1].fluent.name] = occlusionPoints[i - 1].fluent.value;
-                            //    }
-                            //    label2.ForeColor = Color.Magenta;
-
-                            //}
-                            //else
-                            //{
-                            //    text = "*";
-                            //}
+                           
                         }
                         else
                         {
@@ -214,13 +199,39 @@ namespace KRR
 
                         if (fluentValues.ContainsKey(pair.Key))
                         {
+                            //FluentQuery tmpFQuery;
+                            //foreach (FluentQuery fQuery in lstFluentQuery)
+                            //{
+                            //    if (fQuery.fluent.name == pair.Key && fQuery.time == i)
+                            //    {
+                            //        tmpFQuery = fQuery;
+                            //        break;
+                            //    }
+                            //}
+                            
                             if (fluentValues[pair.Key] == 0)
                             {
                                 text2 = "￢";
+                                if (dctFluentQuery.ContainsKey(i) && dctFluentQuery[i].ContainsKey(pair.Key))
+                                {
+                                    if(dctFluentQuery[i][pair.Key].value == false)
+                                    {
+                                        dctFluentQuery[i][pair.Key].valid = true;
+                                    }
+                                }
+                                
                             }
                             else if (fluentValues[pair.Key] == 1)
                             {
                                 text2 = "";
+                                if (dctFluentQuery.ContainsKey(i) && dctFluentQuery[i].ContainsKey(pair.Key))
+                                {
+                                    if (dctFluentQuery[i][pair.Key].value == true)
+                                    {
+                                        dctFluentQuery[i][pair.Key].valid = true;
+                                    }
+                                }
+
                             }
                             else
                             {
@@ -434,17 +445,7 @@ namespace KRR
 
 
                 }
-
-                //Label label = new Label();
-                //label.Location = new Point(xPoint, 235);
-                //label.Parent = this;
-                //label.Name = "lbl" + a.Value.name;
-                //label.Text = a.Key;
-                //lstLabels.Add(label);
-                //label.Size = new Size(80, 15);
-                //this.Controls.Add(label);
-
-                //xPoint += label.Size.Width;
+                
 
                 labelsCreated = true;
             }

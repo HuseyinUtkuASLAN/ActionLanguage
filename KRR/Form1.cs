@@ -23,7 +23,14 @@ namespace KRR
         List<Initially> lstInitially;
         List<Causes> lstCauses;
         List<Releases> lstReleases;
+        
 
+        // dctFluentQuery[time][fluentName]
+        Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery;
+        Dictionary<int, Dictionary<string, ActionQuery>> dctActionQuery;
+
+        Dictionary<int, Dictionary<string, FluentResultQuery>> dctFluentResultQuery;
+        Dictionary<int, Dictionary<string, ActionResultQuery>> dctActionResultQuery;
 
         public frmInput()
         {
@@ -35,6 +42,11 @@ namespace KRR
             lstInitially = new List<Initially>();
             lstCauses = new List<Causes>();
             lstReleases = new List<Releases>();
+
+            dctFluentQuery = new Dictionary<int, Dictionary<string, FluentQuery>>();
+            dctActionQuery = new Dictionary<int, Dictionary<string, ActionQuery>>();
+            dctFluentResultQuery = new Dictionary<int, Dictionary<string, FluentResultQuery>>();
+            dctActionResultQuery = new Dictionary<int, Dictionary<string, ActionResultQuery>>();
 
             InitializeComponent();
 #if DEBUG
@@ -124,6 +136,7 @@ namespace KRR
                 cmbReleasesFluents.Items.Add(str);
                 cmbCausesFluents.Items.Add(str);
                 cmbInitialFluents.Items.Add(str);
+                cmbFluentQuery.Items.Add(str);
                 fluents.Add(str, new Fluent(str));
             }
 
@@ -132,6 +145,7 @@ namespace KRR
                 cmbLoadedActions.Items.Add(str);
                 cmbReleasesActions.Items.Add(str);
                 cmbCausesActions.Items.Add(str);
+                cmbActionQuery.Items.Add(str);
                 actions.Add(str, new Action(str));
             }
 
@@ -146,7 +160,11 @@ namespace KRR
             for (int i = 0; i < timeLimit; i++)
             {
                 cmbLoadedTime.Items.Add(i.ToString());
+                cmbFluentQueryTime.Items.Add(i.ToString());
+                cmbActionQueryTime.Items.Add(i.ToString());
             }
+            cmbFluentQueryTime.Items.Add(timeLimit.ToString());
+            //cmbActionQueryTime.Items.Add(timeLimit.ToString());
         }
 
         private void btnAddOBS_Click(object sender, EventArgs e)
@@ -349,15 +367,17 @@ namespace KRR
 
             Fluent f = new Fluent(fluent);
             Fluent c = new Fluent(condition);
-            if (!chkReleasesFluent.Checked)
-            {
-                checkFluent = "¬ ";
-                f.value = 0;
-            }
-            else
-            {
-                f.value = 1;
-            }
+
+            //if (!chkReleasesFluent.Checked)
+            //{
+            //    checkFluent = "¬ ";
+            //    f.value = 0;
+            //}
+            //else
+            //{
+            //    f.value = 1;
+            //}
+            f.value = 1;
 
             if (!chkReleasesCondition.Checked)
             {
@@ -429,7 +449,22 @@ namespace KRR
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
+            if(lstCauses.Count < 1 && lstReleases.Count < 1)
+            {
+                MessageBox.Show("There are no Causes or Releases statements. Please enter at least 1.");
+                return;
+            }
+
+            if(dctActionQuery.Count < 1 && dctFluentQuery.Count < 1)
+            {
+                MessageBox.Show("There are no Action queries or Fluent queries. Please enter at least 1.");
+                return;
+            }
+
             occlusionPoints();
+
+            frmQueryResult queryResult = new frmQueryResult(dctFluentResultQuery, dctActionResultQuery);
+            queryResult.Show();
         }
 
         private void occlusionPoints()
@@ -517,16 +552,317 @@ namespace KRR
             
             if(lstReleases.Count == 0)
             {
-                frmOutput output = new frmOutput(timeLimit, fluents, agents, lstAcs, lstOBS,lstOcclusion);
+                frmOutput output = new frmOutput(timeLimit, fluents, agents, lstAcs, lstOBS,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
                 if (title != null)
                     output.Text = title;
                 else
                     output.Text = "Result";
                 output.Show();
+                calculateQueries(output.dctFluentQuery);
             }
             
 
         }
+
+        private void btnAddFluentQuery_Click(object sender, EventArgs e)
+        {
+            string text = "";
+            
+            if(cmbQueryFluentNecessity.Text == "")
+            {
+                MessageBox.Show("Fluent Necessity is empty");
+                return ;
+            }
+
+            if (cmbFluentQueryTime.Text == "")
+            {
+                MessageBox.Show("Time is empty");
+                return;
+            }
+
+            if (cmbFluentQuery.Text == "")
+            {
+                MessageBox.Show("Fluent is empty");
+                return;
+            }
+
+
+
+            text += cmbQueryFluentNecessity.Text + "  ";
+
+            if (!chkFluentQuery.Checked)
+            {
+                text += "¬ ";
+            }
+
+            text += cmbFluentQuery.Text + "  at  ";
+            text += cmbFluentQueryTime.Text + "  when  Sc";
+
+            rtbSemantics.AppendText(Environment.NewLine + text + Environment.NewLine);
+
+            Necessity n;
+            if(cmbQueryFluentNecessity.Text == "Necessary")
+            {
+                n = Necessity.Necessary;
+            }
+            else
+            {
+                n = Necessity.Possibly;
+            }
+
+            FluentQuery fQuery = new FluentQuery(n, chkFluentQuery.Checked, new Fluent(cmbFluentQuery.Text), int.Parse(cmbFluentQueryTime.Text));
+            FluentResultQuery frQuery = new FluentResultQuery(n, chkFluentQuery.Checked, new Fluent(cmbFluentQuery.Text), int.Parse(cmbFluentQueryTime.Text));
+            try
+            {
+                addToFluentQueries(fQuery.time, fQuery.fluent.name, fQuery, ref dctFluentQuery);
+                addToFluentResultQueries(frQuery.time, frQuery.fluent.name, frQuery, ref dctFluentResultQuery);
+            }
+            catch(ArgumentException ae)
+            {
+                MessageBox.Show(ae.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            //lstFluentQueries.Add(fQuery);
+        }
+
+        private void btnAddActionQuery_Click(object sender, EventArgs e)
+        {
+            string text = "";
+
+            if (cmbQueryActionNecessity.Text == "")
+            {
+                MessageBox.Show("Action Necessity is empty");
+                return;
+            }
+
+            if (cmbActionQueryTime.Text == "")
+            {
+                MessageBox.Show("Time is empty");
+                return;
+            }
+
+            if (cmbActionQuery.Text == "")
+            {
+                MessageBox.Show("Action is empty");
+                return;
+            }
+
+            text += cmbQueryActionNecessity.Text + "  ";
+            text += cmbActionQuery.Text + "  at  ";
+            text += cmbActionQueryTime.Text + "  when  Sc";
+
+            rtbSemantics.AppendText(Environment.NewLine + text + Environment.NewLine);
+
+            Necessity n;
+            if (cmbQueryActionNecessity.Text == "Necessary")
+            {
+                n = Necessity.Necessary;
+            }
+            else
+            {
+                n = Necessity.Possibly;
+            }
+
+            ActionQuery aQuery = new ActionQuery(n, new Action(cmbActionQuery.Text), int.Parse(cmbActionQueryTime.Text));
+            ActionResultQuery arQuery = new ActionResultQuery(n, new Action(cmbActionQuery.Text), int.Parse(cmbActionQueryTime.Text));
+            try
+            {
+                addToActionQueries(aQuery.time, aQuery.action.name, aQuery, ref dctActionQuery);
+                addToActionResultQueries(arQuery.time, arQuery.action.name, arQuery, ref dctActionResultQuery);
+            }catch(ArgumentException ae)
+            {
+                 MessageBox.Show(ae.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+            //lstActionQueries.Add(aQuery);
+        }
+
+        private void addToFluentQueries( int time, string fluentName, FluentQuery fQuery, ref Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery)
+        {
+            if(dctFluentQuery == null)
+            {
+                dctFluentQuery = new Dictionary<int, Dictionary<string, FluentQuery>>();
+            }
+
+            if (!dctFluentQuery.ContainsKey(time))
+            {
+                dctFluentQuery.Add(time, new Dictionary<string, FluentQuery>());
+            }
+
+            if (!dctFluentQuery[time].ContainsKey(fluentName))
+            {
+                dctFluentQuery[time].Add(fluentName, fQuery);
+            }
+            else
+            {
+                throw new ArgumentException("Fluent Query is already entered.");
+            }
+        }
+
+        private void addToActionQueries(int time, string actionName, ActionQuery aQuery, ref Dictionary<int, Dictionary<string, ActionQuery>> dctActionQuery)
+        {
+            if (dctActionQuery == null)
+            {
+                dctActionQuery = new Dictionary<int, Dictionary<string, ActionQuery>>();
+            }
+
+            if (!dctActionQuery.ContainsKey(time))
+            {
+                dctActionQuery.Add(time, new Dictionary<string, ActionQuery>());
+            }
+
+            if (!dctActionQuery[time].ContainsKey(actionName))
+            {
+                dctActionQuery[time].Add(actionName, aQuery);
+            }
+            else
+            {
+                throw new ArgumentException("Action Query is already entered.");
+            }
+        }
+
+        private void addToFluentResultQueries(int time, string fluentName, FluentResultQuery frQuery, ref Dictionary<int, Dictionary<string, FluentResultQuery>> dctFluentResultQuery)
+        {
+            if (dctFluentResultQuery == null)
+            {
+                dctFluentResultQuery = new Dictionary<int, Dictionary<string, FluentResultQuery>>();
+            }
+
+            if (!dctFluentResultQuery.ContainsKey(time))
+            {
+                dctFluentResultQuery.Add(time, new Dictionary<string, FluentResultQuery>());
+            }
+
+            if (!dctFluentResultQuery[time].ContainsKey(fluentName))
+            {
+                dctFluentResultQuery[time].Add(fluentName, frQuery);
+            }
+            else
+            {
+                throw new ArgumentException("Fluent Query is already entered.");
+            }
+        }
+
+        private void addToActionResultQueries(int time, string actionName, ActionResultQuery arQuery, ref Dictionary<int, Dictionary<string, ActionResultQuery>> dctActionResultQuery)
+        {
+            if (dctActionResultQuery == null)
+            {
+                dctActionResultQuery = new Dictionary<int, Dictionary<string, ActionResultQuery>>();
+            }
+
+            if (!dctActionResultQuery.ContainsKey(time))
+            {
+                dctActionResultQuery.Add(time, new Dictionary<string, ActionResultQuery>());
+            }
+
+            if (!dctActionResultQuery[time].ContainsKey(actionName))
+            {
+                dctActionResultQuery[time].Add(actionName, arQuery);
+            }
+            else
+            {
+                throw new ArgumentException("Action Query is already entered.");
+            }
+        }
+
+        private void calculateQueries(Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery)
+        {
+            foreach(KeyValuePair<int, Dictionary<string, FluentQuery>> timePair in dctFluentQuery)
+            {
+                foreach(KeyValuePair<string,FluentQuery> fluentPair in timePair.Value)
+                {
+                    bool visited = dctFluentResultQuery[timePair.Key][fluentPair.Key].visited;
+
+                    if (!visited)
+                    {
+                        dctFluentResultQuery[timePair.Key][fluentPair.Key].visited = true;
+
+                        if(dctFluentResultQuery[timePair.Key][fluentPair.Key].value == fluentPair.Value.value)
+                        {
+                            dctFluentResultQuery[timePair.Key][fluentPair.Key].valid = fluentPair.Value.valid;
+                            //dctFluentResultQuery[timePair.Key][fluentPair.Key].valid = true;
+                        }
+                        else
+                        {
+                            dctFluentResultQuery[timePair.Key][fluentPair.Key].valid = false;
+                        }
+                    } else if(dctFluentResultQuery[timePair.Key][fluentPair.Key].necessity == Necessity.Necessary)
+                    {
+                        if (dctFluentResultQuery[timePair.Key][fluentPair.Key].valid)
+                        {
+                            if (dctFluentResultQuery[timePair.Key][fluentPair.Key].value != fluentPair.Value.value)
+                            {
+                                dctFluentResultQuery[timePair.Key][fluentPair.Key].valid = false;
+                            }
+                        }
+                        
+                    }else if(dctFluentResultQuery[timePair.Key][fluentPair.Key].necessity == Necessity.Possibly)
+                    {
+                        if (!dctFluentResultQuery[timePair.Key][fluentPair.Key].valid)
+                        {
+                            if (dctFluentResultQuery[timePair.Key][fluentPair.Key].value == fluentPair.Value.value)
+                            {
+                                dctFluentResultQuery[timePair.Key][fluentPair.Key].valid = true;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            //foreach(ACS acs in lstAcs)
+            //{
+            //    bool visited = dctActionResultQuery[acs.time][acs.action.name].visited;
+
+            //    if (!visited)
+            //    {
+            //        dctActionResultQuery[acs.time][acs.action.name].visited = true;
+            //        dctActionResultQuery[acs.time][acs.action.name].valid = true;
+            //    }
+            //    else
+            //    {
+            //        if(dctActionResultQuery[acs.time][acs.action.name].necessity == Necessity.Necessary)
+            //        {
+
+            //        }
+            //    }
+
+            //}
+
+            foreach(KeyValuePair<int,Dictionary<string, ActionResultQuery>> basePair in dctActionResultQuery)
+            {
+                foreach(KeyValuePair<string,ActionResultQuery> arQuery in basePair.Value)
+                {
+                    foreach (ACS acs in lstAcs)
+                    {
+                        if (acs.time == basePair.Key && acs.action.name == arQuery.Key)
+                        {
+
+                            if (!arQuery.Value.visited)
+                            {
+                                arQuery.Value.visited = true;
+                                arQuery.Value.valid = true;
+                            }
+                            //else if(arQuery.Value.necessity == Necessity.Necessary)
+                            //{
+
+                            //}
+                            //else if (arQuery.Value.necessity == Necessity.Possibly)
+                            //{
+
+                            //}
+
+                            break;
+                        }
+                    }
+                }
+
+                
+            }
+
+
+        }
+
 
     }
 }
