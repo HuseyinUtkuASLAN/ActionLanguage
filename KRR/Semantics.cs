@@ -10,11 +10,7 @@ namespace KRR
     {
         public string name { set; get; }
     }
-
-    public class Initially : Semantics
-    {
-        public Fluent fluent;
-    }
+    
 
     public class Releases : Semantics
     {

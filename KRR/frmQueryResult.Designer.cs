@@ -59,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(446, 600);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rtbQueryResults);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmQueryResult";
             this.Text = "Query Result";
             this.Load += new System.EventHandler(this.frmQueryResult_Load);

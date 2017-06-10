@@ -57,7 +57,7 @@ namespace KRR
 
                     if (!frQuery.Value.value)
                         //text += "!";
-                        text += "￢ ";
+                        text += "  ￢";
 
                     text += frQuery.Value.fluent.name + " at ";
                     text += timePair.Key.ToString() + " when Sc";

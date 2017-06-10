@@ -68,42 +68,38 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.btnAddActionQuery = new System.Windows.Forms.Button();
+            this.btnAddFluentQuery = new System.Windows.Forms.Button();
             this.btnAddReleases = new System.Windows.Forms.Button();
             this.btnAddCauses = new System.Windows.Forms.Button();
-            this.btnAddInitial = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.chkReleasesCondition = new System.Windows.Forms.CheckBox();
             this.chkCausesCondition = new System.Windows.Forms.CheckBox();
+            this.chkFluentQuery = new System.Windows.Forms.CheckBox();
             this.chkCausesFluent = new System.Windows.Forms.CheckBox();
-            this.chkInitial = new System.Windows.Forms.CheckBox();
             this.cmbReleasesConditions = new System.Windows.Forms.ComboBox();
             this.cmbCausesConditions = new System.Windows.Forms.ComboBox();
             this.cmbReleasesFluents = new System.Windows.Forms.ComboBox();
             this.cmbCausesFluents = new System.Windows.Forms.ComboBox();
             this.cmbReleaesAgents = new System.Windows.Forms.ComboBox();
             this.cmbCausesAgents = new System.Windows.Forms.ComboBox();
-            this.cmbReleasesActions = new System.Windows.Forms.ComboBox();
-            this.cmbCausesActions = new System.Windows.Forms.ComboBox();
-            this.cmbInitialFluents = new System.Windows.Forms.ComboBox();
-            this.cmbQueryFluentNecessity = new System.Windows.Forms.ComboBox();
-            this.cmbQueryActionNecessity = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.cmbFluentQuery = new System.Windows.Forms.ComboBox();
-            this.cmbActionQuery = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.cmbActionQueryTime = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.btnAddFluentQuery = new System.Windows.Forms.Button();
-            this.btnAddActionQuery = new System.Windows.Forms.Button();
-            this.chkFluentQuery = new System.Windows.Forms.CheckBox();
             this.cmbFluentQueryTime = new System.Windows.Forms.ComboBox();
+            this.cmbActionQueryTime = new System.Windows.Forms.ComboBox();
+            this.cmbActionQuery = new System.Windows.Forms.ComboBox();
+            this.cmbQueryActionNecessity = new System.Windows.Forms.ComboBox();
+            this.cmbReleasesActions = new System.Windows.Forms.ComboBox();
+            this.cmbFluentQuery = new System.Windows.Forms.ComboBox();
+            this.cmbQueryFluentNecessity = new System.Windows.Forms.ComboBox();
+            this.cmbCausesActions = new System.Windows.Forms.ComboBox();
             this.pnlInput.SuspendLayout();
             this.pnlScenario.SuspendLayout();
             this.pnlSemantics.SuspendLayout();
@@ -468,7 +464,6 @@
             this.pnlSemantics.Controls.Add(this.btnAddFluentQuery);
             this.pnlSemantics.Controls.Add(this.btnAddReleases);
             this.pnlSemantics.Controls.Add(this.btnAddCauses);
-            this.pnlSemantics.Controls.Add(this.btnAddInitial);
             this.pnlSemantics.Controls.Add(this.label25);
             this.pnlSemantics.Controls.Add(this.label23);
             this.pnlSemantics.Controls.Add(this.label21);
@@ -477,14 +472,12 @@
             this.pnlSemantics.Controls.Add(this.label22);
             this.pnlSemantics.Controls.Add(this.label20);
             this.pnlSemantics.Controls.Add(this.label13);
-            this.pnlSemantics.Controls.Add(this.label12);
             this.pnlSemantics.Controls.Add(this.label19);
             this.pnlSemantics.Controls.Add(this.label11);
             this.pnlSemantics.Controls.Add(this.chkReleasesCondition);
             this.pnlSemantics.Controls.Add(this.chkCausesCondition);
             this.pnlSemantics.Controls.Add(this.chkFluentQuery);
             this.pnlSemantics.Controls.Add(this.chkCausesFluent);
-            this.pnlSemantics.Controls.Add(this.chkInitial);
             this.pnlSemantics.Controls.Add(this.cmbReleasesConditions);
             this.pnlSemantics.Controls.Add(this.cmbCausesConditions);
             this.pnlSemantics.Controls.Add(this.cmbReleasesFluents);
@@ -499,7 +492,6 @@
             this.pnlSemantics.Controls.Add(this.cmbFluentQuery);
             this.pnlSemantics.Controls.Add(this.cmbQueryFluentNecessity);
             this.pnlSemantics.Controls.Add(this.cmbCausesActions);
-            this.pnlSemantics.Controls.Add(this.cmbInitialFluents);
             this.pnlSemantics.Enabled = false;
             this.pnlSemantics.Location = new System.Drawing.Point(719, 12);
             this.pnlSemantics.Name = "pnlSemantics";
@@ -518,17 +510,17 @@
             // 
             // rtbSemantics
             // 
-            this.rtbSemantics.Location = new System.Drawing.Point(37, 336);
+            this.rtbSemantics.Location = new System.Drawing.Point(37, 279);
             this.rtbSemantics.Name = "rtbSemantics";
             this.rtbSemantics.ReadOnly = true;
-            this.rtbSemantics.Size = new System.Drawing.Size(761, 228);
+            this.rtbSemantics.Size = new System.Drawing.Size(761, 285);
             this.rtbSemantics.TabIndex = 4;
             this.rtbSemantics.Text = "";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(539, 163);
+            this.label18.Location = new System.Drawing.Point(539, 100);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(15, 17);
             this.label18.TabIndex = 1;
@@ -537,7 +529,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(530, 115);
+            this.label15.Location = new System.Drawing.Point(530, 52);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(15, 17);
             this.label15.TabIndex = 1;
@@ -546,7 +538,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(320, 163);
+            this.label17.Location = new System.Drawing.Point(320, 100);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(62, 17);
             this.label17.TabIndex = 1;
@@ -555,15 +547,35 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(320, 115);
+            this.label14.Location = new System.Drawing.Point(320, 52);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 17);
             this.label14.TabIndex = 6;
             this.label14.Text = "causes";
             // 
+            // btnAddActionQuery
+            // 
+            this.btnAddActionQuery.Location = new System.Drawing.Point(440, 222);
+            this.btnAddActionQuery.Name = "btnAddActionQuery";
+            this.btnAddActionQuery.Size = new System.Drawing.Size(68, 30);
+            this.btnAddActionQuery.TabIndex = 19;
+            this.btnAddActionQuery.Text = "Add";
+            this.btnAddActionQuery.UseVisualStyleBackColor = true;
+            this.btnAddActionQuery.Click += new System.EventHandler(this.btnAddActionQuery_Click);
+            // 
+            // btnAddFluentQuery
+            // 
+            this.btnAddFluentQuery.Location = new System.Drawing.Point(464, 172);
+            this.btnAddFluentQuery.Name = "btnAddFluentQuery";
+            this.btnAddFluentQuery.Size = new System.Drawing.Size(68, 30);
+            this.btnAddFluentQuery.TabIndex = 19;
+            this.btnAddFluentQuery.Text = "Add";
+            this.btnAddFluentQuery.UseVisualStyleBackColor = true;
+            this.btnAddFluentQuery.Click += new System.EventHandler(this.btnAddFluentQuery_Click);
+            // 
             // btnAddReleases
             // 
-            this.btnAddReleases.Location = new System.Drawing.Point(711, 156);
+            this.btnAddReleases.Location = new System.Drawing.Point(711, 93);
             this.btnAddReleases.Name = "btnAddReleases";
             this.btnAddReleases.Size = new System.Drawing.Size(68, 30);
             this.btnAddReleases.TabIndex = 19;
@@ -573,7 +585,7 @@
             // 
             // btnAddCauses
             // 
-            this.btnAddCauses.Location = new System.Drawing.Point(702, 108);
+            this.btnAddCauses.Location = new System.Drawing.Point(702, 45);
             this.btnAddCauses.Name = "btnAddCauses";
             this.btnAddCauses.Size = new System.Drawing.Size(68, 30);
             this.btnAddCauses.TabIndex = 11;
@@ -581,193 +593,79 @@
             this.btnAddCauses.UseVisualStyleBackColor = true;
             this.btnAddCauses.Click += new System.EventHandler(this.btnAddCauses_Click);
             // 
-            // btnAddInitial
+            // label25
             // 
-            this.btnAddInitial.Location = new System.Drawing.Point(241, 60);
-            this.btnAddInitial.Name = "btnAddInitial";
-            this.btnAddInitial.Size = new System.Drawing.Size(68, 30);
-            this.btnAddInitial.TabIndex = 2;
-            this.btnAddInitial.Text = "Add";
-            this.btnAddInitial.UseVisualStyleBackColor = true;
-            this.btnAddInitial.Click += new System.EventHandler(this.btnAddInitial_Click);
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(408, 229);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(26, 17);
+            this.label25.TabIndex = 13;
+            this.label25.Text = "Sc";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(361, 229);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(41, 17);
+            this.label23.TabIndex = 13;
+            this.label23.Text = "when";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(291, 229);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(20, 17);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "at";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(164, 163);
+            this.label16.Location = new System.Drawing.Point(164, 100);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(23, 17);
             this.label16.TabIndex = 13;
             this.label16.Text = "by";
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(432, 179);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(26, 17);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "Sc";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(385, 179);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(41, 17);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "when";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(315, 179);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(20, 17);
+            this.label20.TabIndex = 4;
+            this.label20.Text = "at";
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(164, 113);
+            this.label13.Location = new System.Drawing.Point(164, 50);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(23, 17);
             this.label13.TabIndex = 4;
             this.label13.Text = "by";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(34, 67);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(50, 17);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Initially";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(19, 206);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(107, 25);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Queries : ";
-            // 
-            // chkReleasesCondition
-            // 
-            this.chkReleasesCondition.AutoSize = true;
-            this.chkReleasesCondition.Location = new System.Drawing.Point(560, 164);
-            this.chkReleasesCondition.Name = "chkReleasesCondition";
-            this.chkReleasesCondition.Size = new System.Drawing.Size(18, 17);
-            this.chkReleasesCondition.TabIndex = 17;
-            this.chkReleasesCondition.UseVisualStyleBackColor = true;
-            // 
-            // chkCausesCondition
-            // 
-            this.chkCausesCondition.AutoSize = true;
-            this.chkCausesCondition.Location = new System.Drawing.Point(551, 114);
-            this.chkCausesCondition.Name = "chkCausesCondition";
-            this.chkCausesCondition.Size = new System.Drawing.Size(18, 17);
-            this.chkCausesCondition.TabIndex = 9;
-            this.chkCausesCondition.UseVisualStyleBackColor = true;
-            // 
-            // chkCausesFluent
-            // 
-            this.chkCausesFluent.AutoSize = true;
-            this.chkCausesFluent.Location = new System.Drawing.Point(379, 114);
-            this.chkCausesFluent.Name = "chkCausesFluent";
-            this.chkCausesFluent.Size = new System.Drawing.Size(18, 17);
-            this.chkCausesFluent.TabIndex = 7;
-            this.chkCausesFluent.UseVisualStyleBackColor = true;
-            // 
-            // chkInitial
-            // 
-            this.chkInitial.AutoSize = true;
-            this.chkInitial.Location = new System.Drawing.Point(90, 68);
-            this.chkInitial.Name = "chkInitial";
-            this.chkInitial.Size = new System.Drawing.Size(18, 17);
-            this.chkInitial.TabIndex = 0;
-            this.chkInitial.UseVisualStyleBackColor = true;
-            // 
-            // cmbReleasesConditions
-            // 
-            this.cmbReleasesConditions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbReleasesConditions.FormattingEnabled = true;
-            this.cmbReleasesConditions.Location = new System.Drawing.Point(584, 160);
-            this.cmbReleasesConditions.Name = "cmbReleasesConditions";
-            this.cmbReleasesConditions.Size = new System.Drawing.Size(121, 24);
-            this.cmbReleasesConditions.TabIndex = 18;
-            // 
-            // cmbCausesConditions
-            // 
-            this.cmbCausesConditions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCausesConditions.FormattingEnabled = true;
-            this.cmbCausesConditions.Location = new System.Drawing.Point(575, 110);
-            this.cmbCausesConditions.Name = "cmbCausesConditions";
-            this.cmbCausesConditions.Size = new System.Drawing.Size(121, 24);
-            this.cmbCausesConditions.TabIndex = 10;
-            // 
-            // cmbReleasesFluents
-            // 
-            this.cmbReleasesFluents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbReleasesFluents.FormattingEnabled = true;
-            this.cmbReleasesFluents.Location = new System.Drawing.Point(412, 160);
-            this.cmbReleasesFluents.Name = "cmbReleasesFluents";
-            this.cmbReleasesFluents.Size = new System.Drawing.Size(121, 24);
-            this.cmbReleasesFluents.TabIndex = 16;
-            // 
-            // cmbCausesFluents
-            // 
-            this.cmbCausesFluents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCausesFluents.FormattingEnabled = true;
-            this.cmbCausesFluents.Location = new System.Drawing.Point(403, 110);
-            this.cmbCausesFluents.Name = "cmbCausesFluents";
-            this.cmbCausesFluents.Size = new System.Drawing.Size(121, 24);
-            this.cmbCausesFluents.TabIndex = 8;
-            // 
-            // cmbReleaesAgents
-            // 
-            this.cmbReleaesAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbReleaesAgents.FormattingEnabled = true;
-            this.cmbReleaesAgents.Location = new System.Drawing.Point(193, 160);
-            this.cmbReleaesAgents.Name = "cmbReleaesAgents";
-            this.cmbReleaesAgents.Size = new System.Drawing.Size(121, 24);
-            this.cmbReleaesAgents.TabIndex = 14;
-            // 
-            // cmbCausesAgents
-            // 
-            this.cmbCausesAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCausesAgents.FormattingEnabled = true;
-            this.cmbCausesAgents.Location = new System.Drawing.Point(193, 110);
-            this.cmbCausesAgents.Name = "cmbCausesAgents";
-            this.cmbCausesAgents.Size = new System.Drawing.Size(121, 24);
-            this.cmbCausesAgents.TabIndex = 5;
-            // 
-            // cmbReleasesActions
-            // 
-            this.cmbReleasesActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbReleasesActions.FormattingEnabled = true;
-            this.cmbReleasesActions.Location = new System.Drawing.Point(37, 160);
-            this.cmbReleasesActions.Name = "cmbReleasesActions";
-            this.cmbReleasesActions.Size = new System.Drawing.Size(121, 24);
-            this.cmbReleasesActions.TabIndex = 12;
-            // 
-            // cmbCausesActions
-            // 
-            this.cmbCausesActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCausesActions.FormattingEnabled = true;
-            this.cmbCausesActions.Location = new System.Drawing.Point(37, 110);
-            this.cmbCausesActions.Name = "cmbCausesActions";
-            this.cmbCausesActions.Size = new System.Drawing.Size(121, 24);
-            this.cmbCausesActions.TabIndex = 3;
-            // 
-            // cmbInitialFluents
-            // 
-            this.cmbInitialFluents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbInitialFluents.FormattingEnabled = true;
-            this.cmbInitialFluents.Location = new System.Drawing.Point(114, 64);
-            this.cmbInitialFluents.Name = "cmbInitialFluents";
-            this.cmbInitialFluents.Size = new System.Drawing.Size(121, 24);
-            this.cmbInitialFluents.TabIndex = 1;
-            // 
-            // cmbQueryFluentNecessity
-            // 
-            this.cmbQueryFluentNecessity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbQueryFluentNecessity.FormattingEnabled = true;
-            this.cmbQueryFluentNecessity.Items.AddRange(new object[] {
-            "Necessary",
-            "Possibly"});
-            this.cmbQueryFluentNecessity.Location = new System.Drawing.Point(37, 243);
-            this.cmbQueryFluentNecessity.Name = "cmbQueryFluentNecessity";
-            this.cmbQueryFluentNecessity.Size = new System.Drawing.Size(121, 24);
-            this.cmbQueryFluentNecessity.TabIndex = 3;
-            // 
-            // cmbQueryActionNecessity
-            // 
-            this.cmbQueryActionNecessity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbQueryActionNecessity.FormattingEnabled = true;
-            this.cmbQueryActionNecessity.Items.AddRange(new object[] {
-            "Necessary",
-            "Possibly"});
-            this.cmbQueryActionNecessity.Location = new System.Drawing.Point(37, 293);
-            this.cmbQueryActionNecessity.Name = "cmbQueryActionNecessity";
-            this.cmbQueryActionNecessity.Size = new System.Drawing.Size(121, 24);
-            this.cmbQueryActionNecessity.TabIndex = 12;
             // 
             // label19
             // 
@@ -779,126 +677,183 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "Semantics : ";
             // 
-            // cmbFluentQuery
+            // label11
             // 
-            this.cmbFluentQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFluentQuery.FormattingEnabled = true;
-            this.cmbFluentQuery.Location = new System.Drawing.Point(188, 243);
-            this.cmbFluentQuery.Name = "cmbFluentQuery";
-            this.cmbFluentQuery.Size = new System.Drawing.Size(121, 24);
-            this.cmbFluentQuery.TabIndex = 3;
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(19, 139);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(107, 25);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Queries : ";
             // 
-            // cmbActionQuery
+            // chkReleasesCondition
             // 
-            this.cmbActionQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbActionQuery.FormattingEnabled = true;
-            this.cmbActionQuery.Location = new System.Drawing.Point(164, 293);
-            this.cmbActionQuery.Name = "cmbActionQuery";
-            this.cmbActionQuery.Size = new System.Drawing.Size(121, 24);
-            this.cmbActionQuery.TabIndex = 12;
+            this.chkReleasesCondition.AutoSize = true;
+            this.chkReleasesCondition.Location = new System.Drawing.Point(560, 101);
+            this.chkReleasesCondition.Name = "chkReleasesCondition";
+            this.chkReleasesCondition.Size = new System.Drawing.Size(18, 17);
+            this.chkReleasesCondition.TabIndex = 17;
+            this.chkReleasesCondition.UseVisualStyleBackColor = true;
             // 
-            // label20
+            // chkCausesCondition
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(315, 246);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(20, 17);
-            this.label20.TabIndex = 4;
-            this.label20.Text = "at";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(291, 296);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(20, 17);
-            this.label21.TabIndex = 13;
-            this.label21.Text = "at";
-            // 
-            // cmbActionQueryTime
-            // 
-            this.cmbActionQueryTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbActionQueryTime.FormattingEnabled = true;
-            this.cmbActionQueryTime.Location = new System.Drawing.Point(317, 293);
-            this.cmbActionQueryTime.Name = "cmbActionQueryTime";
-            this.cmbActionQueryTime.Size = new System.Drawing.Size(38, 24);
-            this.cmbActionQueryTime.TabIndex = 12;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(385, 246);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(41, 17);
-            this.label22.TabIndex = 4;
-            this.label22.Text = "when";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(361, 296);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(41, 17);
-            this.label23.TabIndex = 13;
-            this.label23.Text = "when";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(432, 246);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(26, 17);
-            this.label24.TabIndex = 4;
-            this.label24.Text = "Sc";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(408, 296);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(26, 17);
-            this.label25.TabIndex = 13;
-            this.label25.Text = "Sc";
-            // 
-            // btnAddFluentQuery
-            // 
-            this.btnAddFluentQuery.Location = new System.Drawing.Point(464, 239);
-            this.btnAddFluentQuery.Name = "btnAddFluentQuery";
-            this.btnAddFluentQuery.Size = new System.Drawing.Size(68, 30);
-            this.btnAddFluentQuery.TabIndex = 19;
-            this.btnAddFluentQuery.Text = "Add";
-            this.btnAddFluentQuery.UseVisualStyleBackColor = true;
-            this.btnAddFluentQuery.Click += new System.EventHandler(this.btnAddFluentQuery_Click);
-            // 
-            // btnAddActionQuery
-            // 
-            this.btnAddActionQuery.Location = new System.Drawing.Point(440, 289);
-            this.btnAddActionQuery.Name = "btnAddActionQuery";
-            this.btnAddActionQuery.Size = new System.Drawing.Size(68, 30);
-            this.btnAddActionQuery.TabIndex = 19;
-            this.btnAddActionQuery.Text = "Add";
-            this.btnAddActionQuery.UseVisualStyleBackColor = true;
-            this.btnAddActionQuery.Click += new System.EventHandler(this.btnAddActionQuery_Click);
+            this.chkCausesCondition.AutoSize = true;
+            this.chkCausesCondition.Location = new System.Drawing.Point(551, 51);
+            this.chkCausesCondition.Name = "chkCausesCondition";
+            this.chkCausesCondition.Size = new System.Drawing.Size(18, 17);
+            this.chkCausesCondition.TabIndex = 9;
+            this.chkCausesCondition.UseVisualStyleBackColor = true;
             // 
             // chkFluentQuery
             // 
             this.chkFluentQuery.AutoSize = true;
-            this.chkFluentQuery.Location = new System.Drawing.Point(164, 247);
+            this.chkFluentQuery.Location = new System.Drawing.Point(164, 180);
             this.chkFluentQuery.Name = "chkFluentQuery";
             this.chkFluentQuery.Size = new System.Drawing.Size(18, 17);
             this.chkFluentQuery.TabIndex = 7;
             this.chkFluentQuery.UseVisualStyleBackColor = true;
             // 
+            // chkCausesFluent
+            // 
+            this.chkCausesFluent.AutoSize = true;
+            this.chkCausesFluent.Location = new System.Drawing.Point(379, 51);
+            this.chkCausesFluent.Name = "chkCausesFluent";
+            this.chkCausesFluent.Size = new System.Drawing.Size(18, 17);
+            this.chkCausesFluent.TabIndex = 7;
+            this.chkCausesFluent.UseVisualStyleBackColor = true;
+            // 
+            // cmbReleasesConditions
+            // 
+            this.cmbReleasesConditions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReleasesConditions.FormattingEnabled = true;
+            this.cmbReleasesConditions.Location = new System.Drawing.Point(584, 97);
+            this.cmbReleasesConditions.Name = "cmbReleasesConditions";
+            this.cmbReleasesConditions.Size = new System.Drawing.Size(121, 24);
+            this.cmbReleasesConditions.TabIndex = 18;
+            // 
+            // cmbCausesConditions
+            // 
+            this.cmbCausesConditions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCausesConditions.FormattingEnabled = true;
+            this.cmbCausesConditions.Location = new System.Drawing.Point(575, 47);
+            this.cmbCausesConditions.Name = "cmbCausesConditions";
+            this.cmbCausesConditions.Size = new System.Drawing.Size(121, 24);
+            this.cmbCausesConditions.TabIndex = 10;
+            // 
+            // cmbReleasesFluents
+            // 
+            this.cmbReleasesFluents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReleasesFluents.FormattingEnabled = true;
+            this.cmbReleasesFluents.Location = new System.Drawing.Point(412, 97);
+            this.cmbReleasesFluents.Name = "cmbReleasesFluents";
+            this.cmbReleasesFluents.Size = new System.Drawing.Size(121, 24);
+            this.cmbReleasesFluents.TabIndex = 16;
+            // 
+            // cmbCausesFluents
+            // 
+            this.cmbCausesFluents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCausesFluents.FormattingEnabled = true;
+            this.cmbCausesFluents.Location = new System.Drawing.Point(403, 47);
+            this.cmbCausesFluents.Name = "cmbCausesFluents";
+            this.cmbCausesFluents.Size = new System.Drawing.Size(121, 24);
+            this.cmbCausesFluents.TabIndex = 8;
+            // 
+            // cmbReleaesAgents
+            // 
+            this.cmbReleaesAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReleaesAgents.FormattingEnabled = true;
+            this.cmbReleaesAgents.Location = new System.Drawing.Point(193, 97);
+            this.cmbReleaesAgents.Name = "cmbReleaesAgents";
+            this.cmbReleaesAgents.Size = new System.Drawing.Size(121, 24);
+            this.cmbReleaesAgents.TabIndex = 14;
+            // 
+            // cmbCausesAgents
+            // 
+            this.cmbCausesAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCausesAgents.FormattingEnabled = true;
+            this.cmbCausesAgents.Location = new System.Drawing.Point(193, 47);
+            this.cmbCausesAgents.Name = "cmbCausesAgents";
+            this.cmbCausesAgents.Size = new System.Drawing.Size(121, 24);
+            this.cmbCausesAgents.TabIndex = 5;
+            // 
             // cmbFluentQueryTime
             // 
             this.cmbFluentQueryTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFluentQueryTime.FormattingEnabled = true;
-            this.cmbFluentQueryTime.Location = new System.Drawing.Point(344, 243);
+            this.cmbFluentQueryTime.Location = new System.Drawing.Point(344, 176);
             this.cmbFluentQueryTime.Name = "cmbFluentQueryTime";
             this.cmbFluentQueryTime.Size = new System.Drawing.Size(38, 24);
             this.cmbFluentQueryTime.TabIndex = 12;
+            // 
+            // cmbActionQueryTime
+            // 
+            this.cmbActionQueryTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbActionQueryTime.FormattingEnabled = true;
+            this.cmbActionQueryTime.Location = new System.Drawing.Point(317, 226);
+            this.cmbActionQueryTime.Name = "cmbActionQueryTime";
+            this.cmbActionQueryTime.Size = new System.Drawing.Size(38, 24);
+            this.cmbActionQueryTime.TabIndex = 12;
+            // 
+            // cmbActionQuery
+            // 
+            this.cmbActionQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbActionQuery.FormattingEnabled = true;
+            this.cmbActionQuery.Location = new System.Drawing.Point(164, 226);
+            this.cmbActionQuery.Name = "cmbActionQuery";
+            this.cmbActionQuery.Size = new System.Drawing.Size(121, 24);
+            this.cmbActionQuery.TabIndex = 12;
+            // 
+            // cmbQueryActionNecessity
+            // 
+            this.cmbQueryActionNecessity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbQueryActionNecessity.FormattingEnabled = true;
+            this.cmbQueryActionNecessity.Items.AddRange(new object[] {
+            "Necessary",
+            "Possibly"});
+            this.cmbQueryActionNecessity.Location = new System.Drawing.Point(37, 226);
+            this.cmbQueryActionNecessity.Name = "cmbQueryActionNecessity";
+            this.cmbQueryActionNecessity.Size = new System.Drawing.Size(121, 24);
+            this.cmbQueryActionNecessity.TabIndex = 12;
+            // 
+            // cmbReleasesActions
+            // 
+            this.cmbReleasesActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReleasesActions.FormattingEnabled = true;
+            this.cmbReleasesActions.Location = new System.Drawing.Point(37, 97);
+            this.cmbReleasesActions.Name = "cmbReleasesActions";
+            this.cmbReleasesActions.Size = new System.Drawing.Size(121, 24);
+            this.cmbReleasesActions.TabIndex = 12;
+            // 
+            // cmbFluentQuery
+            // 
+            this.cmbFluentQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFluentQuery.FormattingEnabled = true;
+            this.cmbFluentQuery.Location = new System.Drawing.Point(188, 176);
+            this.cmbFluentQuery.Name = "cmbFluentQuery";
+            this.cmbFluentQuery.Size = new System.Drawing.Size(121, 24);
+            this.cmbFluentQuery.TabIndex = 3;
+            // 
+            // cmbQueryFluentNecessity
+            // 
+            this.cmbQueryFluentNecessity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbQueryFluentNecessity.FormattingEnabled = true;
+            this.cmbQueryFluentNecessity.Items.AddRange(new object[] {
+            "Necessary",
+            "Possibly"});
+            this.cmbQueryFluentNecessity.Location = new System.Drawing.Point(37, 176);
+            this.cmbQueryFluentNecessity.Name = "cmbQueryFluentNecessity";
+            this.cmbQueryFluentNecessity.Size = new System.Drawing.Size(121, 24);
+            this.cmbQueryFluentNecessity.TabIndex = 3;
+            // 
+            // cmbCausesActions
+            // 
+            this.cmbCausesActions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCausesActions.FormattingEnabled = true;
+            this.cmbCausesActions.Location = new System.Drawing.Point(37, 47);
+            this.cmbCausesActions.Name = "cmbCausesActions";
+            this.cmbCausesActions.Size = new System.Drawing.Size(121, 24);
+            this.cmbCausesActions.TabIndex = 3;
             // 
             // frmInput
             // 
@@ -908,6 +863,7 @@
             this.Controls.Add(this.pnlSemantics);
             this.Controls.Add(this.pnlScenario);
             this.Controls.Add(this.pnlInput);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmInput";
             this.Text = "Inputs";
             this.pnlInput.ResumeLayout(false);
@@ -959,13 +915,10 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox chkInitial;
         private System.Windows.Forms.ComboBox cmbCausesFluents;
         private System.Windows.Forms.ComboBox cmbCausesAgents;
         private System.Windows.Forms.ComboBox cmbCausesActions;
-        private System.Windows.Forms.ComboBox cmbInitialFluents;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
@@ -978,7 +931,6 @@
         private System.Windows.Forms.RichTextBox rtbSemantics;
         private System.Windows.Forms.Button btnAddReleases;
         private System.Windows.Forms.Button btnAddCauses;
-        private System.Windows.Forms.Button btnAddInitial;
         private System.Windows.Forms.CheckBox chkReleasesCondition;
         private System.Windows.Forms.CheckBox chkCausesCondition;
         private System.Windows.Forms.CheckBox chkCausesFluent;
