@@ -20,7 +20,6 @@ namespace KRR
 
         List<Fluent> lstOBS;
         List<ACS> lstAcs;
-        List<Initially> lstInitially;
         List<Causes> lstCauses;
         List<Releases> lstReleases;
         
@@ -39,7 +38,6 @@ namespace KRR
             agents = new Dictionary<string, Agent>();
             lstOBS = new List<Fluent>();
             lstAcs = new List<ACS>();
-            lstInitially = new List<Initially>();
             lstCauses = new List<Causes>();
             lstReleases = new List<Releases>();
 
@@ -135,7 +133,6 @@ namespace KRR
                 cmbCausesConditions.Items.Add(str);
                 cmbReleasesFluents.Items.Add(str);
                 cmbCausesFluents.Items.Add(str);
-                cmbInitialFluents.Items.Add(str);
                 cmbFluentQuery.Items.Add(str);
                 fluents.Add(str, new Fluent(str));
             }
@@ -243,35 +240,7 @@ namespace KRR
 
 
         }
-
-        private void btnAddInitial_Click(object sender, EventArgs e)
-        {
-            if (cmbInitialFluents.Text == "")
-            {
-                MessageBox.Show("Initially fluent is empty");
-                return;
-            }
-
-            Fluent f = new Fluent(cmbInitialFluents.Text);
-            string check = "";
-
-            if (!chkInitial.Checked)
-            {
-                check = "¬ ";
-                f.value = 0;
-            }
-            else
-            {
-                f.value = 1;
-            }
-            rtbSemantics.AppendText(Environment.NewLine + "Initially    " + check + cmbInitialFluents.Text + Environment.NewLine);
-
-            Initially initially = new Initially();
-            initially.name = cmbInitialFluents.Text;
-
-            initially.fluent = f;
-        }
-
+        
         private void btnAddCauses_Click(object sender, EventArgs e)
         {
             if (cmbCausesActions.Text == "")
