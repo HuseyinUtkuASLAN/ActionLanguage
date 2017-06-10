@@ -75,7 +75,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.chkReleasesFluent = new System.Windows.Forms.CheckBox();
             this.chkReleasesCondition = new System.Windows.Forms.CheckBox();
             this.chkCausesCondition = new System.Windows.Forms.CheckBox();
             this.chkCausesFluent = new System.Windows.Forms.CheckBox();
@@ -89,6 +88,22 @@
             this.cmbReleasesActions = new System.Windows.Forms.ComboBox();
             this.cmbCausesActions = new System.Windows.Forms.ComboBox();
             this.cmbInitialFluents = new System.Windows.Forms.ComboBox();
+            this.cmbQueryFluentNecessity = new System.Windows.Forms.ComboBox();
+            this.cmbQueryActionNecessity = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cmbFluentQuery = new System.Windows.Forms.ComboBox();
+            this.cmbActionQuery = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cmbActionQueryTime = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.btnAddFluentQuery = new System.Windows.Forms.Button();
+            this.btnAddActionQuery = new System.Windows.Forms.Button();
+            this.chkFluentQuery = new System.Windows.Forms.CheckBox();
+            this.cmbFluentQueryTime = new System.Windows.Forms.ComboBox();
             this.pnlInput.SuspendLayout();
             this.pnlScenario.SuspendLayout();
             this.pnlSemantics.SuspendLayout();
@@ -449,16 +464,25 @@
             this.pnlSemantics.Controls.Add(this.label15);
             this.pnlSemantics.Controls.Add(this.label17);
             this.pnlSemantics.Controls.Add(this.label14);
+            this.pnlSemantics.Controls.Add(this.btnAddActionQuery);
+            this.pnlSemantics.Controls.Add(this.btnAddFluentQuery);
             this.pnlSemantics.Controls.Add(this.btnAddReleases);
             this.pnlSemantics.Controls.Add(this.btnAddCauses);
             this.pnlSemantics.Controls.Add(this.btnAddInitial);
+            this.pnlSemantics.Controls.Add(this.label25);
+            this.pnlSemantics.Controls.Add(this.label23);
+            this.pnlSemantics.Controls.Add(this.label21);
             this.pnlSemantics.Controls.Add(this.label16);
+            this.pnlSemantics.Controls.Add(this.label24);
+            this.pnlSemantics.Controls.Add(this.label22);
+            this.pnlSemantics.Controls.Add(this.label20);
             this.pnlSemantics.Controls.Add(this.label13);
             this.pnlSemantics.Controls.Add(this.label12);
+            this.pnlSemantics.Controls.Add(this.label19);
             this.pnlSemantics.Controls.Add(this.label11);
-            this.pnlSemantics.Controls.Add(this.chkReleasesFluent);
             this.pnlSemantics.Controls.Add(this.chkReleasesCondition);
             this.pnlSemantics.Controls.Add(this.chkCausesCondition);
+            this.pnlSemantics.Controls.Add(this.chkFluentQuery);
             this.pnlSemantics.Controls.Add(this.chkCausesFluent);
             this.pnlSemantics.Controls.Add(this.chkInitial);
             this.pnlSemantics.Controls.Add(this.cmbReleasesConditions);
@@ -467,7 +491,13 @@
             this.pnlSemantics.Controls.Add(this.cmbCausesFluents);
             this.pnlSemantics.Controls.Add(this.cmbReleaesAgents);
             this.pnlSemantics.Controls.Add(this.cmbCausesAgents);
+            this.pnlSemantics.Controls.Add(this.cmbFluentQueryTime);
+            this.pnlSemantics.Controls.Add(this.cmbActionQueryTime);
+            this.pnlSemantics.Controls.Add(this.cmbActionQuery);
+            this.pnlSemantics.Controls.Add(this.cmbQueryActionNecessity);
             this.pnlSemantics.Controls.Add(this.cmbReleasesActions);
+            this.pnlSemantics.Controls.Add(this.cmbFluentQuery);
+            this.pnlSemantics.Controls.Add(this.cmbQueryFluentNecessity);
             this.pnlSemantics.Controls.Add(this.cmbCausesActions);
             this.pnlSemantics.Controls.Add(this.cmbInitialFluents);
             this.pnlSemantics.Enabled = false;
@@ -488,10 +518,10 @@
             // 
             // rtbSemantics
             // 
-            this.rtbSemantics.Location = new System.Drawing.Point(37, 243);
+            this.rtbSemantics.Location = new System.Drawing.Point(37, 336);
             this.rtbSemantics.Name = "rtbSemantics";
             this.rtbSemantics.ReadOnly = true;
-            this.rtbSemantics.Size = new System.Drawing.Size(761, 281);
+            this.rtbSemantics.Size = new System.Drawing.Size(761, 228);
             this.rtbSemantics.TabIndex = 4;
             this.rtbSemantics.Text = "";
             // 
@@ -592,20 +622,11 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(19, 12);
+            this.label11.Location = new System.Drawing.Point(19, 206);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(132, 25);
+            this.label11.Size = new System.Drawing.Size(107, 25);
             this.label11.TabIndex = 0;
-            this.label11.Text = "Semantics : ";
-            // 
-            // chkReleasesFluent
-            // 
-            this.chkReleasesFluent.AutoSize = true;
-            this.chkReleasesFluent.Location = new System.Drawing.Point(388, 164);
-            this.chkReleasesFluent.Name = "chkReleasesFluent";
-            this.chkReleasesFluent.Size = new System.Drawing.Size(18, 17);
-            this.chkReleasesFluent.TabIndex = 15;
-            this.chkReleasesFluent.UseVisualStyleBackColor = true;
+            this.label11.Text = "Queries : ";
             // 
             // chkReleasesCondition
             // 
@@ -724,6 +745,161 @@
             this.cmbInitialFluents.Size = new System.Drawing.Size(121, 24);
             this.cmbInitialFluents.TabIndex = 1;
             // 
+            // cmbQueryFluentNecessity
+            // 
+            this.cmbQueryFluentNecessity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbQueryFluentNecessity.FormattingEnabled = true;
+            this.cmbQueryFluentNecessity.Items.AddRange(new object[] {
+            "Necessary",
+            "Possibly"});
+            this.cmbQueryFluentNecessity.Location = new System.Drawing.Point(37, 243);
+            this.cmbQueryFluentNecessity.Name = "cmbQueryFluentNecessity";
+            this.cmbQueryFluentNecessity.Size = new System.Drawing.Size(121, 24);
+            this.cmbQueryFluentNecessity.TabIndex = 3;
+            // 
+            // cmbQueryActionNecessity
+            // 
+            this.cmbQueryActionNecessity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbQueryActionNecessity.FormattingEnabled = true;
+            this.cmbQueryActionNecessity.Items.AddRange(new object[] {
+            "Necessary",
+            "Possibly"});
+            this.cmbQueryActionNecessity.Location = new System.Drawing.Point(37, 293);
+            this.cmbQueryActionNecessity.Name = "cmbQueryActionNecessity";
+            this.cmbQueryActionNecessity.Size = new System.Drawing.Size(121, 24);
+            this.cmbQueryActionNecessity.TabIndex = 12;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(19, 13);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(132, 25);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Semantics : ";
+            // 
+            // cmbFluentQuery
+            // 
+            this.cmbFluentQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFluentQuery.FormattingEnabled = true;
+            this.cmbFluentQuery.Location = new System.Drawing.Point(188, 243);
+            this.cmbFluentQuery.Name = "cmbFluentQuery";
+            this.cmbFluentQuery.Size = new System.Drawing.Size(121, 24);
+            this.cmbFluentQuery.TabIndex = 3;
+            // 
+            // cmbActionQuery
+            // 
+            this.cmbActionQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbActionQuery.FormattingEnabled = true;
+            this.cmbActionQuery.Location = new System.Drawing.Point(164, 293);
+            this.cmbActionQuery.Name = "cmbActionQuery";
+            this.cmbActionQuery.Size = new System.Drawing.Size(121, 24);
+            this.cmbActionQuery.TabIndex = 12;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(315, 246);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(20, 17);
+            this.label20.TabIndex = 4;
+            this.label20.Text = "at";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(291, 296);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(20, 17);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "at";
+            // 
+            // cmbActionQueryTime
+            // 
+            this.cmbActionQueryTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbActionQueryTime.FormattingEnabled = true;
+            this.cmbActionQueryTime.Location = new System.Drawing.Point(317, 293);
+            this.cmbActionQueryTime.Name = "cmbActionQueryTime";
+            this.cmbActionQueryTime.Size = new System.Drawing.Size(38, 24);
+            this.cmbActionQueryTime.TabIndex = 12;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(385, 246);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(41, 17);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "when";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(361, 296);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(41, 17);
+            this.label23.TabIndex = 13;
+            this.label23.Text = "when";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(432, 246);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(26, 17);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "Sc";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(408, 296);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(26, 17);
+            this.label25.TabIndex = 13;
+            this.label25.Text = "Sc";
+            // 
+            // btnAddFluentQuery
+            // 
+            this.btnAddFluentQuery.Location = new System.Drawing.Point(464, 239);
+            this.btnAddFluentQuery.Name = "btnAddFluentQuery";
+            this.btnAddFluentQuery.Size = new System.Drawing.Size(68, 30);
+            this.btnAddFluentQuery.TabIndex = 19;
+            this.btnAddFluentQuery.Text = "Add";
+            this.btnAddFluentQuery.UseVisualStyleBackColor = true;
+            this.btnAddFluentQuery.Click += new System.EventHandler(this.btnAddFluentQuery_Click);
+            // 
+            // btnAddActionQuery
+            // 
+            this.btnAddActionQuery.Location = new System.Drawing.Point(440, 289);
+            this.btnAddActionQuery.Name = "btnAddActionQuery";
+            this.btnAddActionQuery.Size = new System.Drawing.Size(68, 30);
+            this.btnAddActionQuery.TabIndex = 19;
+            this.btnAddActionQuery.Text = "Add";
+            this.btnAddActionQuery.UseVisualStyleBackColor = true;
+            this.btnAddActionQuery.Click += new System.EventHandler(this.btnAddActionQuery_Click);
+            // 
+            // chkFluentQuery
+            // 
+            this.chkFluentQuery.AutoSize = true;
+            this.chkFluentQuery.Location = new System.Drawing.Point(164, 247);
+            this.chkFluentQuery.Name = "chkFluentQuery";
+            this.chkFluentQuery.Size = new System.Drawing.Size(18, 17);
+            this.chkFluentQuery.TabIndex = 7;
+            this.chkFluentQuery.UseVisualStyleBackColor = true;
+            // 
+            // cmbFluentQueryTime
+            // 
+            this.cmbFluentQueryTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFluentQueryTime.FormattingEnabled = true;
+            this.cmbFluentQueryTime.Location = new System.Drawing.Point(344, 243);
+            this.cmbFluentQueryTime.Name = "cmbFluentQueryTime";
+            this.cmbFluentQueryTime.Size = new System.Drawing.Size(38, 24);
+            this.cmbFluentQueryTime.TabIndex = 12;
+            // 
             // frmInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -803,10 +979,25 @@
         private System.Windows.Forms.Button btnAddReleases;
         private System.Windows.Forms.Button btnAddCauses;
         private System.Windows.Forms.Button btnAddInitial;
-        private System.Windows.Forms.CheckBox chkReleasesFluent;
         private System.Windows.Forms.CheckBox chkReleasesCondition;
         private System.Windows.Forms.CheckBox chkCausesCondition;
         private System.Windows.Forms.CheckBox chkCausesFluent;
+        private System.Windows.Forms.Button btnAddActionQuery;
+        private System.Windows.Forms.Button btnAddFluentQuery;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox cmbActionQueryTime;
+        private System.Windows.Forms.ComboBox cmbActionQuery;
+        private System.Windows.Forms.ComboBox cmbQueryActionNecessity;
+        private System.Windows.Forms.ComboBox cmbFluentQuery;
+        private System.Windows.Forms.ComboBox cmbQueryFluentNecessity;
+        private System.Windows.Forms.CheckBox chkFluentQuery;
+        private System.Windows.Forms.ComboBox cmbFluentQueryTime;
     }
 }
 
