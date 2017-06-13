@@ -34,7 +34,7 @@
             // 
             // rtbQueryResults
             // 
-            this.rtbQueryResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbQueryResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbQueryResults.Location = new System.Drawing.Point(12, 58);
             this.rtbQueryResults.Name = "rtbQueryResults";
             this.rtbQueryResults.ReadOnly = true;

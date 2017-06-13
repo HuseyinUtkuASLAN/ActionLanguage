@@ -258,11 +258,11 @@ namespace KRR
                 MessageBox.Show("Fluent is empty");
                 return;
             }
-            if (cmbCausesConditions.Text == "")
-            {
-                MessageBox.Show("Condition fluent is empty");
-                return;
-            }
+            //if (cmbCausesConditions.Text == "")
+            //{
+            //    MessageBox.Show("Condition fluent is empty");
+            //    return;
+            //}
             string action = cmbCausesActions.Text;
             string agent = cmbCausesAgents.Text;
             string fluent = cmbCausesFluents.Text;
@@ -282,18 +282,29 @@ namespace KRR
             {
                 f.value = 1;
             }
-
-            if (!chkCausesCondition.Checked)
+            if (cmbCausesConditions.Text == "")
             {
-                checkCondition = "¬ ";
-                c.value = 0;
+                c.value = -1;
+
+                rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    causes    " + checkFluent + fluent + Environment.NewLine);
+
             }
-            else
-            {
-                c.value = 1;
+            else {
+                if (!chkCausesCondition.Checked)
+                {
+                    checkCondition = "¬ ";
+                    c.value = 0;
+                }
+                else
+                {
+                    c.value = 1;
+                }
+
+                rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    causes    " + checkFluent + fluent + "    if    " + checkCondition + condition + Environment.NewLine);
+
             }
 
-            rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    causes    " + checkFluent + fluent + "    if    " + checkCondition + condition + Environment.NewLine);
+
 
             Causes causes = new Causes();
             causes.action = actions[action];
