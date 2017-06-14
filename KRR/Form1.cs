@@ -22,7 +22,7 @@ namespace KRR
         List<ACS> lstAcs;
         List<Causes> lstCauses;
         List<Releases> lstReleases;
-        
+        public List<Formula> lstFormula;
 
         // dctFluentQuery[time][fluentName]
         Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery;
@@ -40,6 +40,7 @@ namespace KRR
             lstAcs = new List<ACS>();
             lstCauses = new List<Causes>();
             lstReleases = new List<Releases>();
+            lstFormula = new List<Formula>();
 
             dctFluentQuery = new Dictionary<int, Dictionary<string, FluentQuery>>();
             dctActionQuery = new Dictionary<int, Dictionary<string, ActionQuery>>();
@@ -789,26 +790,7 @@ namespace KRR
 
                 }
             }
-
-            //foreach(ACS acs in lstAcs)
-            //{
-            //    bool visited = dctActionResultQuery[acs.time][acs.action.name].visited;
-
-            //    if (!visited)
-            //    {
-            //        dctActionResultQuery[acs.time][acs.action.name].visited = true;
-            //        dctActionResultQuery[acs.time][acs.action.name].valid = true;
-            //    }
-            //    else
-            //    {
-            //        if(dctActionResultQuery[acs.time][acs.action.name].necessity == Necessity.Necessary)
-            //        {
-
-            //        }
-            //    }
-
-            //}
-
+            
             foreach(KeyValuePair<int,Dictionary<string, ActionResultQuery>> basePair in dctActionResultQuery)
             {
                 foreach(KeyValuePair<string,ActionResultQuery> arQuery in basePair.Value)
@@ -842,6 +824,40 @@ namespace KRR
 
 
         }
+
+        private void btnCausesFormula_Click(object sender, EventArgs e)
+        {
+            frmFormula formula = new frmFormula(fluents,actions,agents,this);
+            DialogResult dialogResult = formula.ShowDialog();
+
+            if(dialogResult == DialogResult.Cancel)
+            {
+                return;
+            }else
+            {
+                string formulaText = lstFormula[lstFormula.Count - 1].text;
+
+                string text = "";
+
+                text += lstFormula[lstFormula.Count - 1].action.name + " by ";
+                text += lstFormula[lstFormula.Count - 1].agent.name + "  ";
+                text += formulaText + "  ";
+
+                string sign = "";
+
+                if(lstFormula[lstFormula.Count - 1].condition.value == 0)
+                {
+                    sign = "¬ ";
+                }
+
+                text += "  if  " + sign + lstFormula[lstFormula.Count - 1].condition.name;
+
+                rtbSemantics.AppendText(Environment.NewLine + text + Environment.NewLine);
+
+            }
+            
+        }
+
 
 
     }

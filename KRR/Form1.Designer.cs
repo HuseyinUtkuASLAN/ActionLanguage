@@ -62,6 +62,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pnlSemantics = new System.Windows.Forms.Panel();
+            this.btnCausesFormula = new System.Windows.Forms.Button();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.rtbSemantics = new System.Windows.Forms.RichTextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -100,6 +101,7 @@
             this.cmbFluentQuery = new System.Windows.Forms.ComboBox();
             this.cmbQueryFluentNecessity = new System.Windows.Forms.ComboBox();
             this.cmbCausesActions = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.pnlInput.SuspendLayout();
             this.pnlScenario.SuspendLayout();
             this.pnlSemantics.SuspendLayout();
@@ -454,6 +456,8 @@
             // pnlSemantics
             // 
             this.pnlSemantics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSemantics.Controls.Add(this.label12);
+            this.pnlSemantics.Controls.Add(this.btnCausesFormula);
             this.pnlSemantics.Controls.Add(this.btnCalculate);
             this.pnlSemantics.Controls.Add(this.rtbSemantics);
             this.pnlSemantics.Controls.Add(this.label18);
@@ -497,6 +501,16 @@
             this.pnlSemantics.Name = "pnlSemantics";
             this.pnlSemantics.Size = new System.Drawing.Size(803, 665);
             this.pnlSemantics.TabIndex = 2;
+            // 
+            // btnCausesFormula
+            // 
+            this.btnCausesFormula.Location = new System.Drawing.Point(193, 14);
+            this.btnCausesFormula.Name = "btnCausesFormula";
+            this.btnCausesFormula.Size = new System.Drawing.Size(162, 28);
+            this.btnCausesFormula.TabIndex = 21;
+            this.btnCausesFormula.Text = "Add causes formula";
+            this.btnCausesFormula.UseVisualStyleBackColor = true;
+            this.btnCausesFormula.Click += new System.EventHandler(this.btnCausesFormula_Click);
             // 
             // btnCalculate
             // 
@@ -857,6 +871,16 @@
             this.cmbCausesActions.Size = new System.Drawing.Size(121, 24);
             this.cmbCausesActions.TabIndex = 3;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Crimson;
+            this.label12.Location = new System.Drawing.Point(361, 20);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(131, 17);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "*under construction";
+            // 
             // frmInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -952,6 +976,8 @@
         private System.Windows.Forms.ComboBox cmbQueryFluentNecessity;
         private System.Windows.Forms.CheckBox chkFluentQuery;
         private System.Windows.Forms.ComboBox cmbFluentQueryTime;
+        private System.Windows.Forms.Button btnCausesFormula;
+        private System.Windows.Forms.Label label12;
     }
 }
 

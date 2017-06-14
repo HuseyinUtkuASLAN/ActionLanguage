@@ -56,6 +56,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formula.cs" />
+    <Compile Include="frmFormula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFormula.Designer.cs">
+      <DependentUpon>frmFormula.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmOutput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +124,9 @@
     <Compile Include="Semantics.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFormula.resx">
+      <DependentUpon>frmFormula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOutput.resx">
       <DependentUpon>frmOutput.cs</DependentUpon>
