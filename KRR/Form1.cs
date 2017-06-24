@@ -18,7 +18,8 @@ namespace KRR
         Dictionary<string, Action> actions;
         Dictionary<string, Agent> agents;
 
-        List<Fluent> lstOBS;
+        List<Fluent> lstOBSOld;
+        List<OBS> lstOBS;
         List<ACS> lstAcs;
         List<Causes> lstCauses;
         List<Releases> lstReleases;
@@ -36,7 +37,8 @@ namespace KRR
             fluents = new Dictionary<string, Fluent>();
             actions = new Dictionary<string, Action>();
             agents = new Dictionary<string, Agent>();
-            lstOBS = new List<Fluent>();
+            lstOBSOld = new List<Fluent>();
+            lstOBS = new List<OBS>();
             lstAcs = new List<ACS>();
             lstCauses = new List<Causes>();
             lstReleases = new List<Releases>();
@@ -160,17 +162,25 @@ namespace KRR
                 cmbLoadedTime.Items.Add(i.ToString());
                 cmbFluentQueryTime.Items.Add(i.ToString());
                 cmbActionQueryTime.Items.Add(i.ToString());
+                cmbObsTime.Items.Add(i.ToString());
             }
             cmbFluentQueryTime.Items.Add(timeLimit.ToString());
-            //cmbActionQueryTime.Items.Add(timeLimit.ToString());
+            cmbObsTime.Items.Add(timeLimit.ToString());
+            cmbObsTime.SelectedIndex = 0;
         }
 
         private void btnAddOBS_Click(object sender, EventArgs e)
         {
+            
             string str = cmbLoadedFluents.Text;
             if (str == "")
             {
                 MessageBox.Show("Fluent is empty!");
+                return;
+            }
+            if(cmbObsTime.Text == "")
+            {
+                MessageBox.Show("Time is empty!");
                 return;
             }
             if (chkFluent.Checked)
@@ -180,11 +190,13 @@ namespace KRR
             {
                 fluents[str].value = 0;
             }
+            OBS obs = new OBS(fluents[str],int.Parse(cmbObsTime.Text));
+            lstOBS.Add(obs);
 
-            lstOBS.Add(fluents[str]);
+            lstOBSOld.Add(fluents[str]);
             lblOBS.Text = getOBSText();
 
-            lstOBS.Add(fluents[str]);
+            lstOBSOld.Add(fluents[str]);
         }
 
         private void btnAddACS_Click(object sender, EventArgs e)
@@ -533,7 +545,7 @@ namespace KRR
             
             if(lstReleases.Count == 0)
             {
-                frmOutput output = new frmOutput(timeLimit, fluents, agents, lstAcs, lstOBS,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
+                frmOutput output = new frmOutput(timeLimit, fluents, agents, lstAcs, lstOBSOld,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
                 if (title != null)
                     output.Text = title;
                 else
@@ -827,7 +839,7 @@ namespace KRR
 
         private void btnCausesFormula_Click(object sender, EventArgs e)
         {
-            frmFormula formula = new frmFormula(fluents,actions,agents,this);
+            frmFormula formula = new frmFormula(fluents,this,sender);
             DialogResult dialogResult = formula.ShowDialog();
 
             if(dialogResult == DialogResult.Cancel)
@@ -835,24 +847,17 @@ namespace KRR
                 return;
             }else
             {
-                string formulaText = lstFormula[lstFormula.Count - 1].text;
+                //string formulaText = lstFormula[lstFormula.Count - 1].text;
 
-                string text = "";
+                //string text = "";
 
-                text += lstFormula[lstFormula.Count - 1].action.name + " by ";
-                text += lstFormula[lstFormula.Count - 1].agent.name + "  ";
-                text += formulaText + "  ";
+                //text += lstFormula[lstFormula.Count - 1].action.name + " by ";
+                //text += lstFormula[lstFormula.Count - 1].agent.name + "  ";
+                //text += formulaText + "  ";
 
-                string sign = "";
-
-                if(lstFormula[lstFormula.Count - 1].condition.value == 0)
-                {
-                    sign = "¬ ";
-                }
-
-                text += "  if  " + sign + lstFormula[lstFormula.Count - 1].condition.name;
-
-                rtbSemantics.AppendText(Environment.NewLine + text + Environment.NewLine);
+                //string sign = "";
+                
+                //rtbSemantics.AppendText(Environment.NewLine + text + Environment.NewLine);
 
             }
             

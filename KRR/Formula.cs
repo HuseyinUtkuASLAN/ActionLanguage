@@ -10,14 +10,11 @@ namespace KRR
     {
         public List<Fluent> lstCauses0;
         public List<Fluent> lstCauses1;
-        public Action action;
-        public Agent agent;
 
         public string text;
 
         public bool or = false;
-
-        public Fluent condition;
+        
 
         public Formula()
         {

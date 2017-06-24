@@ -13,18 +13,17 @@ namespace KRR
     public partial class frmFormula : Form
     {
         Dictionary<string, Fluent> fluents;
-        Dictionary<string, Action> actions;
-        Dictionary<string, Agent> agents;
 
         Formula formula;
         frmInput formInput;
+        object sender;
 
-        public frmFormula(Dictionary<string, Fluent> fluents, Dictionary<string, Action> actions, Dictionary<string, Agent> agents,frmInput formInput)
+
+        public frmFormula(Dictionary<string, Fluent> fluents, frmInput formInput, object sender)
         {
             formula = new Formula();
             this.fluents = fluents;
-            this.actions = actions;
-            this.agents = agents;
+            this.sender = sender;
             this.formInput = formInput;
             InitializeComponent();
         }
@@ -35,16 +34,8 @@ namespace KRR
             {
                 cmbCauses0.Items.Add(pair.Key);
                 cmbCauses1.Items.Add(pair.Key);
-                cmbCondition.Items.Add(pair.Key);
             }
-            foreach(KeyValuePair<string,Agent> pair in agents)
-            {
-                cmbCausesAgents.Items.Add(pair.Key);
-            }
-            foreach(KeyValuePair<string,Action> pair in actions)
-            {
-                cmbCausesActions.Items.Add(pair.Key);
-            }
+            
         }
 
         private void btnAdd0_Click(object sender, EventArgs e)
@@ -149,27 +140,9 @@ namespace KRR
                 MessageBox.Show("Formula is empty.");
                 return;
             }
-            if(cmbCausesActions.Text == "")
-            {
-                MessageBox.Show("Actions is empty.");
-                return;
-            }
-            if (cmbCausesAgents.Text == "")
-            {
-                MessageBox.Show("Agents is empty.");
-                return;
-            }
-            if (cmbCondition.Text == "")
-            {
-                MessageBox.Show("Condition is empty.");
-                return;
-            }
-
+            
             formula.text = rtbFormula.Text;
-            formula.action = actions[cmbCausesActions.Text];
-            formula.agent = agents[cmbCausesAgents.Text];
-            formula.condition = fluents[cmbCondition.Text];
-
+            ((Button)this.sender).Text = formula.text;
             formInput.lstFormula.Add(formula);
 
             DialogResult = DialogResult.OK;
