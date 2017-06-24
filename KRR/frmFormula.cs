@@ -144,8 +144,10 @@ namespace KRR
             formula.text = rtbFormula.Text;
             ((Button)this.sender).Text = formula.text;
             formInput.lstFormula.Add(formula);
-
+            
             DialogResult = DialogResult.OK;
         }
+
+        
     }
 }

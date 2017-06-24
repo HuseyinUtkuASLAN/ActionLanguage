@@ -20,6 +20,7 @@ namespace KRR
 
         List<Fluent> lstOBSOld;
         List<OBS> lstOBS;
+        public Dictionary<int, Dictionary<string, OBS>> dctOBS;
         List<ACS> lstAcs;
         List<Causes> lstCauses;
         List<Releases> lstReleases;
@@ -39,6 +40,7 @@ namespace KRR
             agents = new Dictionary<string, Agent>();
             lstOBSOld = new List<Fluent>();
             lstOBS = new List<OBS>();
+            dctOBS = new Dictionary<int, Dictionary<string, OBS>>();
             lstAcs = new List<ACS>();
             lstCauses = new List<Causes>();
             lstReleases = new List<Releases>();
@@ -192,10 +194,10 @@ namespace KRR
             }
             OBS obs = new OBS(fluents[str],int.Parse(cmbObsTime.Text));
             lstOBS.Add(obs);
+            addToDctOBS(ref dctOBS, obs.time, obs.name, obs);
 
             lstOBSOld.Add(fluents[str]);
             lblOBS.Text = getOBSText();
-
             lstOBSOld.Add(fluents[str]);
         }
 
@@ -415,27 +417,56 @@ namespace KRR
             string returnText;
             int i = 0;
             returnText = "OBS = { (";
-            foreach (KeyValuePair<string, Fluent> fluent in fluents)
-            {
+            //foreach (KeyValuePair<string, Fluent> fluent in fluents)
+            //{
 
-                if (fluent.Value.value != -1)
+            //    if (fluent.Value.value != -1)
+            //    {
+            //        if (fluent.Value.value == 0)
+            //        {
+            //            string change = "¬ " + fluent.Value.name + " Λ ";
+            //            returnText += change;
+            //        }
+            //        else
+            //        {
+            //            string change = "" + fluent.Value.name + " Λ ";
+            //            returnText += change;
+            //        }
+            //    }
+            //    i++;
+            //}
+            returnText = "OBS = { ";
+            foreach (KeyValuePair<int,Dictionary<string,OBS>> timeObs in dctOBS)
+            {
+                returnText += "(";
+                int j = 0;
+                foreach(KeyValuePair<string,OBS> obs in timeObs.Value)
                 {
-                    if (fluent.Value.value == 0)
+                    if (obs.Value.value != -1)
                     {
-                        string change = "¬ " + fluent.Value.name + " Λ ";
-                        returnText += change;
+                        if (obs.Value.value == 0)
+                        {
+                            string change = "¬ " + obs.Value.name + " Λ ";
+                            returnText += change;
+                        }
+                        else
+                        {
+                            string change = "" + obs.Value.name + " Λ ";
+                            returnText += change;
+                        }
                     }
-                    else
-                    {
-                        string change = "" + fluent.Value.name + " Λ ";
-                        returnText += change;
-                    }
+                    j++;
                 }
+                if (j > 0)
+                    returnText = returnText.Remove(returnText.Length - 2);
+                returnText += ", " + timeObs.Key.ToString() + "), ";
                 i++;
             }
+
+
             if (i > 0)
                 returnText = returnText.Remove(returnText.Length - 2);
-            returnText += ", 0 ) }";
+            returnText += " }";
 
             return returnText;
         }
@@ -863,6 +894,25 @@ namespace KRR
             
         }
 
+        public void addToDctOBS(ref Dictionary<int, Dictionary<string, OBS>> dctOBS, int time, string fluentName, OBS obs)
+        {
+            if (!dctOBS.ContainsKey(time))
+            {
+                dctOBS.Add(time, new Dictionary<string, OBS>());
+            }
+
+            if (!dctOBS[time].ContainsKey(fluentName))
+            {
+                dctOBS[time].Add(fluentName, obs);
+            }
+            else
+            {
+                dctOBS[time][fluentName] = obs;
+            }
+            
+
+
+        }
 
 
     }
