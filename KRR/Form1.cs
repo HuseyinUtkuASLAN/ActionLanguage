@@ -394,7 +394,7 @@ namespace KRR
             lstReleases.Add(releases);
         }
 
-        string getACSText ()
+        public string getACSText ()
         {
             string returnText;
 
@@ -412,7 +412,7 @@ namespace KRR
             return returnText;
         }
 
-        string getOBSText()
+        public string getOBSText()
         {
             string returnText;
             int i = 0;
@@ -576,12 +576,20 @@ namespace KRR
             
             if(lstReleases.Count == 0)
             {
-                frmOutput output = new frmOutput(timeLimit, fluents, agents, lstAcs, lstOBSOld,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
+                frmOutput output = new frmOutput(this, timeLimit, fluents, agents, lstAcs, dctOBS, lstOBSOld,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
                 if (title != null)
                     output.Text = title;
                 else
                     output.Text = "Result";
-                output.Show();
+
+                try
+                {
+                    output.Show();
+                }catch(ObjectDisposedException e)
+                {
+                    
+                }
+
                 calculateQueries(output.dctFluentQuery);
             }
             
