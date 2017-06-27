@@ -24,21 +24,24 @@ namespace KRR
 
         List<ACS> lstAcs;
         List<Fluent> lstObs;
+        Dictionary<int, Dictionary<string, OBS>> dctOBS;
         public Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery;
 
         int timeLimit;
-        
 
-        public frmOutput( int timeLimit, Dictionary<string,Fluent> fluents, Dictionary<string, Agent> agents, List<ACS> lstAcs, List<Fluent> lstObs, List<Occlusion> lstOcclusion, Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery)
+        frmInput formInput;
+
+        public frmOutput( frmInput formInput, int timeLimit, Dictionary<string,Fluent> fluents, Dictionary<string, Agent> agents, List<ACS> lstAcs, Dictionary<int, Dictionary<string, OBS>> dctOBS, List<Fluent> lstObs, List<Occlusion> lstOcclusion, Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery)
         {
             this.timeLimit = timeLimit;
             this.fluents = fluents;
             this.agents = agents;
             this.lstAcs = lstAcs;
             this.lstObs = lstObs;
+            this.dctOBS = dctOBS;
             this.lstOcclusion = lstOcclusion;
             this.dctFluentQuery = dctFluentQuery;
-
+            this.formInput = formInput;
             agentNameColor = new Dictionary<string, Color>();
             InitializeComponent();
         }
@@ -55,7 +58,12 @@ namespace KRR
             }
             rtbEntrence.AppendText(strFluents + Environment.NewLine);
 
-            if(lstOcclusion.Count > 0)
+            // add observations to richtextbox
+            rtbEntrence.AppendText(Environment.NewLine + formInput.getOBSText() + Environment.NewLine);
+
+            // add actions to richtextbox
+            rtbEntrence.AppendText(formInput.getACSText() + Environment.NewLine);
+            if (lstOcclusion.Count > 0)
             {
                 Dictionary<string, int> fluentValues = new Dictionary<string, int>();
 
@@ -101,6 +109,9 @@ namespace KRR
 
                             if(occlusionPoints.ContainsKey(i - 1) && occlusionPoints[i - 1].ContainsKey(pair.Value.name))
                             {
+
+                                
+
                                 if(occlusionPoints[i - 1][pair.Value.name].fluent.value == 0)
                                 {
                                     text = "￢";
@@ -124,6 +135,8 @@ namespace KRR
                                 }
                                 foreach(Occlusion foundOcc in lstFoundOcclusion)
                                 {
+
+                                    
                                     if (!contains)
                                     {
                                         fluentValues.Add(foundOcc.fluent.name, foundOcc.fluent.value);
@@ -148,33 +161,62 @@ namespace KRR
                         {
                             bool found = false;
 
-                            foreach (Fluent f in lstObs)
+                            if (dctOBS.ContainsKey(0))
                             {
-                                if (f.name == pair.Key)
+                                foreach(KeyValuePair<string,OBS> obs in dctOBS[0])
                                 {
+                                    if(obs.Key == pair.Key)
+                                    {
+                                        if (obs.Value.value == 0)
+                                        {
+                                            text = "￢";
+                                        }
+                                        else
+                                        {
+                                            text = "";
+                                        }
 
-                                    if (f.value == 0)
-                                    {
-                                        text = "￢";
+                                        if (!fluentValues.ContainsKey(obs.Value.name))
+                                        {
+                                            fluentValues.Add(obs.Value.name, obs.Value.value);
+                                        }
+                                        else
+                                        {
+                                            fluentValues[obs.Value.name] = obs.Value.value;
+                                        }
+                                        found = true;
+                                        break;
                                     }
-                                    else
-                                    {
-                                        text = "";
-                                    }
-
-                                    if (!fluentValues.ContainsKey(f.name))
-                                    {
-                                        fluentValues.Add(f.name, f.value);
-                                    }
-                                    else
-                                    {
-                                        fluentValues[f.name] = f.value;
-                                    }
-                                    found = true;
-                                    break;
                                 }
-
                             }
+
+                            //foreach (Fluent f in lstObs)
+                            //{
+                            //    if (f.name == pair.Key)
+                            //    {
+
+                            //        if (f.value == 0)
+                            //        {
+                            //            text = "￢";
+                            //        }
+                            //        else
+                            //        {
+                            //            text = "";
+                            //        }
+
+                            //        if (!fluentValues.ContainsKey(f.name))
+                            //        {
+                            //            fluentValues.Add(f.name, f.value);
+                            //        }
+                            //        else
+                            //        {
+                            //            fluentValues[f.name] = f.value;
+                            //        }
+                            //        found = true;
+                            //        break;
+                            //    }
+
+                            //}
                             if(!found)
                             {
                                 text = "* ";
@@ -199,49 +241,73 @@ namespace KRR
 
                         if (fluentValues.ContainsKey(pair.Key))
                         {
-                            //FluentQuery tmpFQuery;
-                            //foreach (FluentQuery fQuery in lstFluentQuery)
-                            //{
-                            //    if (fQuery.fluent.name == pair.Key && fQuery.time == i)
-                            //    {
-                            //        tmpFQuery = fQuery;
-                            //        break;
-                            //    }
-                            //}
-                            
-                            if (fluentValues[pair.Key] == 0)
+
+                            // Contradiction between observation and actions result! (OBS, Occ)
+                            if (dctOBS.ContainsKey(i) && dctOBS[i].ContainsKey(pair.Key) && dctOBS[i][pair.Key].value != fluentValues[pair.Key])
                             {
-                                text2 = "￢";
-                                if (dctFluentQuery.ContainsKey(i) && dctFluentQuery[i].ContainsKey(pair.Key))
+                                foreach (Occlusion occ in lstOcclusion)
                                 {
-                                    if(dctFluentQuery[i][pair.Key].value == false)
+                                    if (occ.time + 1 == i)
                                     {
-                                        dctFluentQuery[i][pair.Key].valid = true;
-                                    }
-                                }
-                                
-                            }
-                            else if (fluentValues[pair.Key] == 1)
-                            {
-                                text2 = "";
-                                if (dctFluentQuery.ContainsKey(i) && dctFluentQuery[i].ContainsKey(pair.Key))
-                                {
-                                    if (dctFluentQuery[i][pair.Key].value == true)
-                                    {
-                                        dctFluentQuery[i][pair.Key].valid = true;
+                                        MessageBox.Show("There is a contradiction between observation and action's result!", "Contradiction", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        this.Close();
                                     }
                                 }
 
-                            }
-                            else
+                                // if there are no contradiction, an observation will be added to calculations
+                                OBS o = dctOBS[i][pair.Key];
+                                //fluentValues.Add(o.name, o.value);
+
+                                if (o.value == 0)
+                                {
+                                    text2 = "￢";
+                                }
+                                else
+                                {
+                                    text2 = "";
+                                }
+                                fluentValues[o.name] = o.value;
+                                label2.ForeColor = Color.DarkGreen;
+
+                            }else
                             {
-                                text2 = "* ";
+
+
+                                if (fluentValues[pair.Key] == 0)
+                                {
+                                    text2 = "￢";
+                                    if (dctFluentQuery.ContainsKey(i) && dctFluentQuery[i].ContainsKey(pair.Key))
+                                    {
+                                        if (dctFluentQuery[i][pair.Key].value == false)
+                                        {
+                                            dctFluentQuery[i][pair.Key].valid = true;
+                                        }
+                                    }
+
+                                }
+                                else if (fluentValues[pair.Key] == 1)
+                                {
+                                    text2 = "";
+                                    if (dctFluentQuery.ContainsKey(i) && dctFluentQuery[i].ContainsKey(pair.Key))
+                                    {
+                                        if (dctFluentQuery[i][pair.Key].value == true)
+                                        {
+                                            dctFluentQuery[i][pair.Key].valid = true;
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    text2 = "* ";
+                                }
                             }
                         }
                         else
                         {
-                            fluentValues.Add(pair.Key, -1 );
-                            text2 = "* ";
+                                fluentValues.Add(pair.Key, -1);
+                                text2 = "* ";
+                         
                         }
                         
 

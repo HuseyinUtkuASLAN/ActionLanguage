@@ -18,11 +18,18 @@ namespace KRR
         Dictionary<string, Action> actions;
         Dictionary<string, Agent> agents;
 
-        List<Fluent> lstOBS;
+        List<Fluent> lstOBSOld;
+        List<OBS> lstOBS;
+        public Dictionary<int, Dictionary<string, OBS>> dctOBS;
         List<ACS> lstAcs;
         List<Causes> lstCauses;
         List<Releases> lstReleases;
-        
+        public List<Formula> lstFormula;
+
+        Formula causesFormula;
+
+        //new query result dictionary
+        Dictionary<int, Dictionary<string, List<int>>> dctResultFluent;
 
         // dctFluentQuery[time][fluentName]
         Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery;
@@ -36,15 +43,22 @@ namespace KRR
             fluents = new Dictionary<string, Fluent>();
             actions = new Dictionary<string, Action>();
             agents = new Dictionary<string, Agent>();
-            lstOBS = new List<Fluent>();
+            lstOBSOld = new List<Fluent>();
+            lstOBS = new List<OBS>();
+            dctOBS = new Dictionary<int, Dictionary<string, OBS>>();
             lstAcs = new List<ACS>();
             lstCauses = new List<Causes>();
             lstReleases = new List<Releases>();
+            lstFormula = new List<Formula>();
 
             dctFluentQuery = new Dictionary<int, Dictionary<string, FluentQuery>>();
             dctActionQuery = new Dictionary<int, Dictionary<string, ActionQuery>>();
             dctFluentResultQuery = new Dictionary<int, Dictionary<string, FluentResultQuery>>();
             dctActionResultQuery = new Dictionary<int, Dictionary<string, ActionResultQuery>>();
+
+
+            dctResultFluent = new Dictionary<int, Dictionary<string, List<int>>>();
+
 
             InitializeComponent();
 #if DEBUG
@@ -159,17 +173,25 @@ namespace KRR
                 cmbLoadedTime.Items.Add(i.ToString());
                 cmbFluentQueryTime.Items.Add(i.ToString());
                 cmbActionQueryTime.Items.Add(i.ToString());
+                cmbObsTime.Items.Add(i.ToString());
             }
             cmbFluentQueryTime.Items.Add(timeLimit.ToString());
-            //cmbActionQueryTime.Items.Add(timeLimit.ToString());
+            cmbObsTime.Items.Add(timeLimit.ToString());
+            cmbObsTime.SelectedIndex = 0;
         }
 
         private void btnAddOBS_Click(object sender, EventArgs e)
         {
+            
             string str = cmbLoadedFluents.Text;
             if (str == "")
             {
                 MessageBox.Show("Fluent is empty!");
+                return;
+            }
+            if(cmbObsTime.Text == "")
+            {
+                MessageBox.Show("Time is empty!");
                 return;
             }
             if (chkFluent.Checked)
@@ -179,11 +201,13 @@ namespace KRR
             {
                 fluents[str].value = 0;
             }
+            OBS obs = new OBS(fluents[str],int.Parse(cmbObsTime.Text));
+            lstOBS.Add(obs);
+            addToDctOBS(ref dctOBS, obs.time, obs.name, obs);
 
-            lstOBS.Add(fluents[str]);
+            lstOBSOld.Add(fluents[str]);
             lblOBS.Text = getOBSText();
-
-            lstOBS.Add(fluents[str]);
+            lstOBSOld.Add(fluents[str]);
         }
 
         private void btnAddACS_Click(object sender, EventArgs e)
@@ -333,11 +357,7 @@ namespace KRR
                 MessageBox.Show("Fluent is empty");
                 return;
             }
-            if (cmbReleasesConditions.Text == "")
-            {
-                MessageBox.Show("Condition fluent is empty");
-                return;
-            }
+            
             string action = cmbReleasesActions.Text;
             string agent = cmbReleaesAgents.Text;
             string fluent = cmbReleasesFluents.Text;
@@ -359,16 +379,28 @@ namespace KRR
             //}
             f.value = 1;
 
-            if (!chkReleasesCondition.Checked)
+            if(chkReleasesCondition.Text == "")
             {
-                checkCondition = "¬ ";
+                c.value = -1;
+                rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    releases    " + checkFluent + fluent + Environment.NewLine);
+
             }
             else
             {
-                c.value = 1;
+                if (!chkReleasesCondition.Checked)
+                {
+                    checkCondition = "¬ ";
+                }
+                else
+                {
+                    c.value = 1;
+                }
+                rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    releases    " + checkFluent + fluent + "    if    " + checkCondition + condition + Environment.NewLine);
+
             }
 
-            rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    releases    " + checkFluent + fluent + "    if    " + checkCondition + condition + Environment.NewLine);
+
+
 
             Releases releases = new Releases();
             releases.action = actions[action];
@@ -379,7 +411,7 @@ namespace KRR
             lstReleases.Add(releases);
         }
 
-        string getACSText ()
+        public string getACSText ()
         {
             string returnText;
 
@@ -397,32 +429,61 @@ namespace KRR
             return returnText;
         }
 
-        string getOBSText()
+        public string getOBSText()
         {
             string returnText;
             int i = 0;
             returnText = "OBS = { (";
-            foreach (KeyValuePair<string, Fluent> fluent in fluents)
-            {
+            //foreach (KeyValuePair<string, Fluent> fluent in fluents)
+            //{
 
-                if (fluent.Value.value != -1)
+            //    if (fluent.Value.value != -1)
+            //    {
+            //        if (fluent.Value.value == 0)
+            //        {
+            //            string change = "¬ " + fluent.Value.name + " Λ ";
+            //            returnText += change;
+            //        }
+            //        else
+            //        {
+            //            string change = "" + fluent.Value.name + " Λ ";
+            //            returnText += change;
+            //        }
+            //    }
+            //    i++;
+            //}
+            returnText = "OBS = { ";
+            foreach (KeyValuePair<int,Dictionary<string,OBS>> timeObs in dctOBS)
+            {
+                returnText += "(";
+                int j = 0;
+                foreach(KeyValuePair<string,OBS> obs in timeObs.Value)
                 {
-                    if (fluent.Value.value == 0)
+                    if (obs.Value.value != -1)
                     {
-                        string change = "¬ " + fluent.Value.name + " Λ ";
-                        returnText += change;
+                        if (obs.Value.value == 0)
+                        {
+                            string change = "¬ " + obs.Value.name + " Λ ";
+                            returnText += change;
+                        }
+                        else
+                        {
+                            string change = "" + obs.Value.name + " Λ ";
+                            returnText += change;
+                        }
                     }
-                    else
-                    {
-                        string change = "" + fluent.Value.name + " Λ ";
-                        returnText += change;
-                    }
+                    j++;
                 }
+                if (j > 0)
+                    returnText = returnText.Remove(returnText.Length - 2);
+                returnText += ", " + timeObs.Key.ToString() + "), ";
                 i++;
             }
+
+
             if (i > 0)
                 returnText = returnText.Remove(returnText.Length - 2);
-            returnText += ", 0 ) }";
+            returnText += " }";
 
             return returnText;
         }
@@ -532,12 +593,20 @@ namespace KRR
             
             if(lstReleases.Count == 0)
             {
-                frmOutput output = new frmOutput(timeLimit, fluents, agents, lstAcs, lstOBS,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
+                frmOutput output = new frmOutput(this, timeLimit, fluents, agents, lstAcs, dctOBS, lstOBSOld,lstOcclusion,new Dictionary<int, Dictionary<string, FluentQuery>>(dctFluentQuery));
                 if (title != null)
                     output.Text = title;
                 else
                     output.Text = "Result";
-                output.Show();
+
+                try
+                {
+                    output.Show();
+                }catch(ObjectDisposedException e)
+                {
+                    
+                }
+
                 calculateQueries(output.dctFluentQuery);
             }
             
@@ -677,6 +746,8 @@ namespace KRR
             {
                 throw new ArgumentException("Fluent Query is already entered.");
             }
+
+            
         }
 
         private void addToActionQueries(int time, string actionName, ActionQuery aQuery, ref Dictionary<int, Dictionary<string, ActionQuery>> dctActionQuery)
@@ -789,26 +860,7 @@ namespace KRR
 
                 }
             }
-
-            //foreach(ACS acs in lstAcs)
-            //{
-            //    bool visited = dctActionResultQuery[acs.time][acs.action.name].visited;
-
-            //    if (!visited)
-            //    {
-            //        dctActionResultQuery[acs.time][acs.action.name].visited = true;
-            //        dctActionResultQuery[acs.time][acs.action.name].valid = true;
-            //    }
-            //    else
-            //    {
-            //        if(dctActionResultQuery[acs.time][acs.action.name].necessity == Necessity.Necessary)
-            //        {
-
-            //        }
-            //    }
-
-            //}
-
+            
             foreach(KeyValuePair<int,Dictionary<string, ActionResultQuery>> basePair in dctActionResultQuery)
             {
                 foreach(KeyValuePair<string,ActionResultQuery> arQuery in basePair.Value)
@@ -839,6 +891,45 @@ namespace KRR
 
                 
             }
+
+
+        }
+
+        private void btnCausesFormula_Click(object sender, EventArgs e)
+        {
+            frmFormula formFormula = new frmFormula(fluents,this,sender);
+            DialogResult dialogResult = formFormula.ShowDialog();
+
+            if(dialogResult == DialogResult.Cancel)
+            {
+                return;
+            }else
+            {
+                if( ((Button)sender).Name == "btnCausesFormula")
+                {
+                    causesFormula = formFormula.formula;
+                }
+
+            }
+            
+        }
+
+        public void addToDctOBS(ref Dictionary<int, Dictionary<string, OBS>> dctOBS, int time, string fluentName, OBS obs)
+        {
+            if (!dctOBS.ContainsKey(time))
+            {
+                dctOBS.Add(time, new Dictionary<string, OBS>());
+            }
+
+            if (!dctOBS[time].ContainsKey(fluentName))
+            {
+                dctOBS[time].Add(fluentName, obs);
+            }
+            else
+            {
+                dctOBS[time][fluentName] = obs;
+            }
+            
 
 
         }
