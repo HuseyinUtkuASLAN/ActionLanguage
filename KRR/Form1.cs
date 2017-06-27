@@ -26,6 +26,11 @@ namespace KRR
         List<Releases> lstReleases;
         public List<Formula> lstFormula;
 
+        Formula causesFormula;
+
+        //new query result dictionary
+        Dictionary<int, Dictionary<string, List<int>>> dctResultFluent;
+
         // dctFluentQuery[time][fluentName]
         Dictionary<int, Dictionary<string, FluentQuery>> dctFluentQuery;
         Dictionary<int, Dictionary<string, ActionQuery>> dctActionQuery;
@@ -50,6 +55,10 @@ namespace KRR
             dctActionQuery = new Dictionary<int, Dictionary<string, ActionQuery>>();
             dctFluentResultQuery = new Dictionary<int, Dictionary<string, FluentResultQuery>>();
             dctActionResultQuery = new Dictionary<int, Dictionary<string, ActionResultQuery>>();
+
+
+            dctResultFluent = new Dictionary<int, Dictionary<string, List<int>>>();
+
 
             InitializeComponent();
 #if DEBUG
@@ -348,11 +357,7 @@ namespace KRR
                 MessageBox.Show("Fluent is empty");
                 return;
             }
-            if (cmbReleasesConditions.Text == "")
-            {
-                MessageBox.Show("Condition fluent is empty");
-                return;
-            }
+            
             string action = cmbReleasesActions.Text;
             string agent = cmbReleaesAgents.Text;
             string fluent = cmbReleasesFluents.Text;
@@ -374,16 +379,28 @@ namespace KRR
             //}
             f.value = 1;
 
-            if (!chkReleasesCondition.Checked)
+            if(chkReleasesCondition.Text == "")
             {
-                checkCondition = "¬ ";
+                c.value = -1;
+                rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    releases    " + checkFluent + fluent + Environment.NewLine);
+
             }
             else
             {
-                c.value = 1;
+                if (!chkReleasesCondition.Checked)
+                {
+                    checkCondition = "¬ ";
+                }
+                else
+                {
+                    c.value = 1;
+                }
+                rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    releases    " + checkFluent + fluent + "    if    " + checkCondition + condition + Environment.NewLine);
+
             }
 
-            rtbSemantics.AppendText(Environment.NewLine + action + "    by    " + agent + "    releases    " + checkFluent + fluent + "    if    " + checkCondition + condition + Environment.NewLine);
+
+
 
             Releases releases = new Releases();
             releases.action = actions[action];
@@ -729,6 +746,8 @@ namespace KRR
             {
                 throw new ArgumentException("Fluent Query is already entered.");
             }
+
+            
         }
 
         private void addToActionQueries(int time, string actionName, ActionQuery aQuery, ref Dictionary<int, Dictionary<string, ActionQuery>> dctActionQuery)
@@ -878,25 +897,18 @@ namespace KRR
 
         private void btnCausesFormula_Click(object sender, EventArgs e)
         {
-            frmFormula formula = new frmFormula(fluents,this,sender);
-            DialogResult dialogResult = formula.ShowDialog();
+            frmFormula formFormula = new frmFormula(fluents,this,sender);
+            DialogResult dialogResult = formFormula.ShowDialog();
 
             if(dialogResult == DialogResult.Cancel)
             {
                 return;
             }else
             {
-                //string formulaText = lstFormula[lstFormula.Count - 1].text;
-
-                //string text = "";
-
-                //text += lstFormula[lstFormula.Count - 1].action.name + " by ";
-                //text += lstFormula[lstFormula.Count - 1].agent.name + "  ";
-                //text += formulaText + "  ";
-
-                //string sign = "";
-                
-                //rtbSemantics.AppendText(Environment.NewLine + text + Environment.NewLine);
+                if( ((Button)sender).Name == "btnCausesFormula")
+                {
+                    causesFormula = formFormula.formula;
+                }
 
             }
             

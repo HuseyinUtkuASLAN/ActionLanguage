@@ -753,6 +753,8 @@
             // 
             this.cmbReleasesConditions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbReleasesConditions.FormattingEnabled = true;
+            this.cmbReleasesConditions.Items.AddRange(new object[] {
+            ""});
             this.cmbReleasesConditions.Location = new System.Drawing.Point(584, 97);
             this.cmbReleasesConditions.Name = "cmbReleasesConditions";
             this.cmbReleasesConditions.Size = new System.Drawing.Size(121, 24);

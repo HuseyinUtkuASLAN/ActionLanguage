@@ -14,7 +14,7 @@ namespace KRR
     {
         Dictionary<string, Fluent> fluents;
 
-        Formula formula;
+        public Formula formula;
         frmInput formInput;
         object sender;
 
